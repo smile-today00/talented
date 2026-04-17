@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نجوم الموهبة — لوحة المعلم</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pu:#7C3AED;--pul:#EDE9FE;
+  --gr:#059669;--grl:#D1FAE5;
+  --re:#DC2626;--rel:#FEE2E2;
+  --bl:#2563EB;--bll:#DBEAFE;
+  --am:#D97706;--aml:#FEF3C7;
+  --g50:#F9FAFB;--g100:#F3F4F6;--g200:#E5E7EB;--g400:#9CA3AF;--g600:#4B5563;--g800:#1F2937;
+  --r:12px;--rs:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;background:#F8FAFC;color:var(--g800);min-height:100vh;direction:rtl}
+
+.hdr{background:#fff;border-bottom:1px solid var(--g200);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.hdr-left{display:flex;align-items:center;gap:10px}
+.hdr h1{font-size:18px;font-weight:700;color:var(--pu)}
+.teacher-badge{background:#FEF3C7;color:#92400E;padding:4px 10px;border-radius:50px;font-size:12px;font-weight:700}
+.ldot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gr);margin-left:4px;animation:lp 1.5s infinite}
+@keyframes lp{0%,100%{opacity:1}50%{opacity:.3}}
+.live-txt{font-size:12px;color:var(--g400)}
+
+.main{max-width:680px;margin:0 auto;padding:18px 16px}
+
+.top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.top-bar h2{font-size:16px;font-weight:700;color:var(--g800)}
+
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.sbox{background:#fff;border:1px solid var(--g200);border-radius:var(--rs);padding:14px;text-align:center}
+.sn{font-size:28px;font-weight:700;color:var(--pu)}
+.sl{font-size:12px;color:var(--g400);margin-top:3px}
+
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.filter-lbl{font-size:13px;color:var(--g600);font-weight:700;white-space:nowrap}
+.fbtn{padding:6px 12px;border-radius:50px;border:1px solid var(--g200);background:#fff;color:var(--g600);font-family:'Tajawal',sans-serif;font-size:12px;cursor:pointer;transition:all .15s}
+.fbtn.active{background:var(--pul);border-color:#A78BFA;color:var(--pu);font-weight:700}
+
+.sc{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:14px;margin-bottom:10px;transition:all .15s}
+.sc:hover{border-color:#A78BFA}
+.sc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px}
+.snam{font-size:15px;font-weight:700;color:var(--pu)}
+.sc-badges{display:flex;gap:5px;flex-wrap:wrap}
+.slvl{padding:3px 9px;border-radius:50px;font-size:11px;font-weight:700}
+.slvl.g1{background:#DBEAFE;color:#1D4ED8}
+.slvl.g2{background:#FEF3C7;color:#92400E}
+.stalent{padding:3px 9px;border-radius:50px;font-size:11px;font-weight:700;background:var(--pul);color:var(--pu)}
+.sc-score{display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.score-item{font-size:12px;color:var(--g600)}
+.score-item strong{color:var(--g800);font-weight:700}
+
+.game-section{margin-top:8px}
+.game-lbl{font-size:11px;font-weight:700;color:var(--g400);margin:8px 0 4px;display:flex;align-items:center;gap:4px}
+.arow{padding:7px 0;border-bottom:1px solid var(--g100)}
+.arow:last-child{border-bottom:none}
+.arow-meta{font-size:11px;color:var(--g400);margin-bottom:2px}
+.arow-q{font-size:13px;color:var(--g600);margin-bottom:2px}
+.arow-a{font-size:13px;font-weight:700;color:var(--g800)}
+.arow-a.correct{color:var(--gr)}
+.arow-a.wrong{color:var(--re)}
+.aimg{max-width:100%;border-radius:8px;margin-top:6px;border:1px solid var(--g200);max-height:200px;object-fit:contain}
+
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.btn-g{padding:9px 16px;border-radius:var(--rs);background:var(--grl);color:var(--gr);font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;border:1px solid #A7F3D0;cursor:pointer;transition:all .15s}
+.btn-g:hover{background:#A7F3D0}
+.btn-s{padding:9px 16px;border-radius:var(--rs);background:#fff;color:var(--g600);font-family:'Tajawal',sans-serif;font-size:13px;border:1px solid var(--g200);cursor:pointer;transition:all .15s}
+.btn-s:hover{background:var(--g100)}
+.btn-r{padding:9px 16px;border-radius:var(--rs);background:var(--rel);color:var(--re);font-family:'Tajawal',sans-serif;font-size:13px;border:1px solid #FCA5A5;cursor:pointer}
+
+.exparea{margin-top:12px;display:none}
+.exparea textarea{width:100%;height:180px;padding:11px;border-radius:var(--rs);border:1px solid var(--g200);font-size:12px;direction:rtl;resize:vertical;color:var(--g800)}
+
+.nodata{text-align:center;padding:48px 20px;color:var(--g400)}
+.nodata .nd-icon{font-size:48px;margin-bottom:12px;display:block}
+.nodata p{font-size:15px}
+.nodata span{font-size:13px;display:block;margin-top:6px}
+
+.ldg{text-align:center;padding:40px;color:var(--g400)}
+.spin{display:inline-block;width:22px;height:22px;border:2px solid var(--g200);border-top-color:var(--pu);border-radius:50%;animation:spin .6s linear infinite;margin-bottom:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.refresh-bar{display:flex;align-items:center;gap:8px}
+.last-update{font-size:12px;color:var(--g400)}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-left">
+    <h1>نجوم الموهبة ✨</h1>
+    <span class="teacher-badge">📋 لوحة المعلم</span>
+  </div>
+  <div class="refresh-bar">
+    <span class="live-txt" id="live-txt">تتحدث تلقائياً <span class="ldot"></span></span>
+    <button class="btn-g" onclick="loadTeacher()" style="padding:6px 12px;font-size:12px">تحديث الآن</button>
+  </div>
+</header>
+
+<div class="main">
+
+  <div class="top-bar">
+    <h2>إجابات وأعمال الطلاب</h2>
+    <div style="font-size:12px;color:var(--g400)" id="last-time">—</div>
+  </div>
+
+  <div class="sgrid">
+    <div class="sbox"><div class="sn" id="ss">0</div><div class="sl">طلاب</div></div>
+    <div class="sbox"><div class="sn" id="sr">0</div><div class="sl">نشاط مسجل</div></div>
+    <div class="sbox"><div class="sn" id="sa">0%</div><div class="sl">متوسط الدقة</div></div>
+  </div>
+
+  <div class="filter-row">
+    <span class="filter-lbl">المرحلة:</span>
+    <button class="fbtn active" data-filter="all" onclick="setFilter('lvl','all',this)">الكل</button>
+    <button class="fbtn" data-filter="g1" onclick="setFilter('lvl','g1',this)">حلقة أولى</button>
+    <button class="fbtn" data-filter="g2" onclick="setFilter('lvl','g2',this)">روضة ثانية</button>
+  </div>
+
+  <div id="tlist"><div class="ldg"><div class="spin"></div><br>جاري تحميل البيانات...</div></div>
+
+  <div class="actions">
+    <button class="btn-g" onclick="exportData()">📥 تصدير كنص</button>
+    <button class="btn-s" onclick="loadTeacher()">🔄 تحديث</button>
+    <button class="btn-r" onclick="clearAll()">🗑 مسح جميع البيانات</button>
+  </div>
+
+  <div class="exparea" id="exparea"><textarea id="exptxt"></textarea></div>
+
+</div>
+
+<script>
+const KA='gft-v6-ans',KD='gft-v6-draw',KM='gft-v6-music';
+async function dbGet(k){try{const r=await window.storage.get(k,true);return r?JSON.parse(r.value):[];}catch{return[];}}
+async function dbDel(k){try{await window.storage.delete(k,true);}catch{}}
+
+const TALENT_LABELS = {
+  iq:{icon:'🧠',label:'الذكاء'},think:{icon:'💡',label:'الإبداع'},art:{icon:'🎨',label:'الرسم'},
+  music:{icon:'🎵',label:'الموسيقى'},reading:{icon:'📖',label:'القراءة'},
+  writing:{icon:'✍️',label:'الكتابة'},math:{icon:'🔢',label:'الرياضيات'},
+  initiative:{icon:'🚀',label:'المبادرة'},tech:{icon:'💻',label:'التكنولوجيا'}
+};
+
+
+let currentLvlFilter='all';
+let allData={ans:[],draws:[],musics:[]};
+
+function setFilter(type,val,btn){
+  currentLvlFilter=val;
+  document.querySelectorAll('.filter-row .fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTeacher(allData.ans,allData.draws,allData.musics);
+}
+
+async function loadTeacher(){
+  document.getElementById('tlist').innerHTML='<div class="ldg"><div class="spin"></div><br>جاري التحميل...</div>';
+  const [ans,draws,musics]=await Promise.all([dbGet(KA),dbGet(KD),dbGet(KM)]);
+  allData={ans,draws,musics};
+  renderTeacher(ans,draws,musics);
+  document.getElementById('last-time').textContent='آخر تحديث: '+new Date().toLocaleTimeString('ar');
+}
+
+function renderTeacher(ans,draws,musics){
+  const list=document.getElementById('tlist');
+  
+  // Apply filter
+  const fAns=currentLvlFilter==='all'?ans:ans.filter(r=>r.lvl===currentLvlFilter);
+  const fDraws=currentLvlFilter==='all'?draws:draws.filter(r=>r.lvl===currentLvlFilter);
+  const fMusics=currentLvlFilter==='all'?musics:musics.filter(r=>r.lvl===currentLvlFilter);
+
+  if(!fAns.length&&!fDraws.length&&!fMusics.length){
+    list.innerHTML='<div class="nodata"><span class="nd-icon">📭</span><p>لا توجد بيانات بعد</p><span>انتظر حتى يكمل الطلاب الأنشطة وأعد التحديث</span></div>';
+    updSt(0,0,0);return;
+  }
+
+  const by={};
+  fAns.forEach(r=>{const k=r.name||'غير معروف';if(!by[k])by[k]={lvl:r.lvl||'g1',talent:r.talent||'iq',a:[],d:[],m:[]};by[k].a.push(r);});
+  fDraws.forEach(r=>{const k=r.name||'غير معروف';if(!by[k])by[k]={lvl:r.lvl||'g1',talent:r.talent||'art',a:[],d:[],m:[]};by[k].d.push(r);});
+  fMusics.forEach(r=>{const k=r.name||'غير معروف';if(!by[k])by[k]={lvl:r.lvl||'g1',talent:r.talent||'music',a:[],d:[],m:[]};by[k].m.push(r);});
+
+  const names=Object.keys(by);
+  let sc=0,tot=0;fAns.forEach(r=>{sc+=r.sc||0;tot+=r.tot||0;});
+  updSt(names.length,fAns.length+fDraws.length+fMusics.length,tot>0?Math.round(sc/tot*100):0);
+
+  list.innerHTML='';
+  names.forEach(name=>{
+    const d=by[name];
+    const s=d.a.reduce((x,r)=>x+(r.sc||0),0);
+    const t=d.a.reduce((x,r)=>x+(r.tot||0),0);
+    const pct=t>0?Math.round(s/t*100):0;
+    const lvlLabel=d.lvl==='g1'?'حلقة أولى':'روضة ثانية';
+    const talCfg=TALENT_LABELS[d.talent]||{icon:'⭐',label:d.talent||'—'};
+
+    const card=document.createElement('div');card.className='sc';
+
+    // Find most recent activity timestamp
+    const allTs=[...d.a,...d.d,...d.m].map(r=>r.ts||0);
+    const lastTs=allTs.length?Math.max(...allTs):0;
+    const lastTime=lastTs?new Date(lastTs).toLocaleTimeString('ar'):'—';
+    let h=`<div class="sc-top">`;
+    h+=`<div class="snam">👤 ${name}</div>`;
+    h+=`<div class="sc-badges"><span class="slvl ${d.lvl}">${lvlLabel}</span><span class="stalent">${talCfg.icon} ${talCfg.label}</span></div>`;
+    h+=`<div class="score-item">آخر نشاط: <strong>${lastTime}</strong></div>`;
+    h+=`</div>`;
+    h+=`<div class="sc-score">`;
+    h+=`<div class="score-item">النقاط: <strong>${s}/${t}</strong></div>`;
+    h+=`<div class="score-item">الدقة: <strong>${pct}%</strong></div>`;
+    h+=`<div class="score-item">الإجابات: <strong>${d.a.length}</strong></div>`;
+    if(d.d.length)h+=`<div class="score-item">الرسمات: <strong>${d.d.length}</strong></div>`;
+    if(d.m.length)h+=`<div class="score-item">الألحان: <strong>${d.m.length}</strong></div>`;
+    h+=`</div>`;
+
+    // Group answers by game
+    const grp={};
+    d.a.forEach(r=>{if(!grp[r.game])grp[r.game]=[];grp[r.game].push(r);});
+    Object.entries(grp).forEach(([game,rows])=>{
+      h+=`<div class="game-section"><div class="game-lbl">${game}</div>`;
+      rows.forEach(r=>{
+        const isCorrect=r.a&&r.a.includes('✓');
+        const isWrong=r.a&&r.a.includes('✗');
+        h+=`<div class="arow">`;
+        h+=`<div class="arow-meta">${r.time}</div>`;
+        h+=`<div class="arow-q">${r.q}</div>`;
+        h+=`<div class="arow-a ${isCorrect?'correct':isWrong?'wrong':''}">${r.a}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+    });
+
+    if(d.m.length){
+      h+=`<div class="game-section"><div class="game-lbl">🎹 ألحان الاستوديو</div>`;
+      d.m.forEach(r=>{h+=`<div class="arow"><div class="arow-meta">${r.time}</div><div class="arow-q">${r.title||'لحن'}</div><div class="arow-a">${r.detail}</div></div>`;});
+      h+=`</div>`;
+    }
+
+    if(d.d.length){
+      h+=`<div class="game-section"><div class="game-lbl">🎨 الرسمات</div>`;
+      d.d.forEach(r=>{h+=`<div class="arow"><div class="arow-meta">${r.time}</div><div class="arow-q">${r.ch}</div><img class="aimg" src="${r.du}" loading="lazy"/></div>`;});
+      h+=`</div>`;
+    }
+
+    card.innerHTML=h;list.appendChild(card);
+  });
+}
+
+function updSt(s,r,a){
+  document.getElementById('ss').textContent=s;
+  document.getElementById('sr').textContent=r;
+  document.getElementById('sa').textContent=a+'%';
+}
+
+async function clearAll(){
+  if(!confirm('هل تريد مسح جميع بيانات الطلاب؟ هذا الإجراء لا يمكن التراجع عنه.'))return;
+  await Promise.all([dbDel(KA),dbDel(KD),dbDel(KM)]);
+  document.getElementById('exparea').style.display='none';
+  loadTeacher();
+}
+
+async function exportData(){
+  const [ans,musics,draws]=await Promise.all([dbGet(KA),dbGet(KM),dbGet(KD)]);
+  if(!ans.length&&!musics.length){alert('لا توجد بيانات نصية للتصدير');return;}
+  const by={};
+  ans.forEach(r=>{if(!by[r.name])by[r.name]={lvl:r.lvl,talent:r.talent,a:[],m:[]};by[r.name].a.push(r);});
+  musics.forEach(r=>{if(!by[r.name])by[r.name]={lvl:r.lvl,talent:r.talent,a:[],m:[]};by[r.name].m.push(r);});
+  let txt='نجوم الموهبة — تقرير المعلم\n'+'='.repeat(35)+'\n';
+  txt+='تاريخ التصدير: '+new Date().toLocaleString('ar')+'\n\n';
+  Object.entries(by).forEach(([name,d])=>{
+    const lvl=d.lvl==='g1'?'حلقة أولى':'روضة ثانية';
+    const tal=(TALENT_LABELS[d.talent]||{label:'—'}).label;
+    const s=d.a.reduce((x,r)=>x+(r.sc||0),0);
+    const t=d.a.reduce((x,r)=>x+(r.tot||0),0);
+    const pct=t>0?Math.round(s/t*100):0;
+    txt+=`الطالب: ${name}\n`;
+    txt+=`  المرحلة: ${lvl} | الموهبة: ${tal} | النقاط: ${s}/${t} (${pct}%)\n`;
+    const grp={};d.a.forEach(r=>{if(!grp[r.game])grp[r.game]=[];grp[r.game].push(r);});
+    Object.entries(grp).forEach(([g,rows])=>{
+      txt+=`  ${g}:\n`;
+      rows.forEach(r=>{txt+=`    [${r.time}] ${r.q}\n    → ${r.a}\n\n`;});
+    });
+    d.m.forEach(r=>{txt+=`  [${r.time}] لحن "${r.title}": ${r.detail}\n\n`;});
+    txt+='\n';
+  });
+  document.getElementById('exptxt').value=txt;
+  document.getElementById('exparea').style.display='block';
+  document.getElementById('exparea').scrollIntoView({behavior:'smooth'});
+}
+
+setInterval(loadTeacher, 10000);
+window.addEventListener('load', loadTeacher);
+</script>
+</body>
+</html>
