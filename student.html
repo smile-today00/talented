@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نجوم الموهبة — الطالب</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pu:#7C3AED;--pul:#EDE9FE;--pum:#A78BFA;
+  --gr:#059669;--grl:#D1FAE5;
+  --re:#DC2626;--rel:#FEE2E2;
+  --bl:#2563EB;--bll:#DBEAFE;
+  --am:#D97706;--aml:#FEF3C7;
+  --pk:#DB2777;--pkl:#FCE7F3;
+  --te:#0D9488;--tel:#CCFBF1;
+  --g50:#F9FAFB;--g100:#F3F4F6;--g200:#E5E7EB;--g400:#9CA3AF;--g600:#4B5563;--g800:#1F2937;
+  --r:12px;--rs:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;background:#F8FAFC;color:var(--g800);min-height:100vh;direction:rtl}
+
+/* ===== INTRO ===== */
+#intro{position:fixed;inset:0;z-index:999;display:flex;flex-direction:column;overflow-y:auto;align-items:center;justify-content:flex-start;padding:0;background:linear-gradient(160deg,#4C1D95,#7C3AED 45%,#EC4899 78%,#FBBF24)}
+#intro.out{animation:sOut .5s ease-in forwards}
+@keyframes sOut{to{transform:translateY(-100%);opacity:0}}
+.ibg{position:fixed;inset:0;pointer-events:none;z-index:0}
+.ist{position:absolute;color:rgba(255,255,255,.65);animation:twk ease-in-out infinite}
+@keyframes twk{0%,100%{opacity:.1;transform:scale(.7)}50%{opacity:1;transform:scale(1.3)}}
+.orb{position:fixed;border-radius:50%;pointer-events:none;opacity:.1;animation:ofl ease-in-out infinite;z-index:0}
+@keyframes ofl{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+
+.i-scroll{position:relative;z-index:1;width:100%;max-width:420px;padding:28px 20px 40px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center}
+.ilogo{font-size:64px;animation:pop .8s cubic-bezier(.175,.885,.32,1.275) both;margin-bottom:4px}
+@keyframes pop{0%{transform:scale(0) rotate(-15deg);opacity:0}60%{transform:scale(1.2) rotate(4deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+.ititle{font-size:34px;font-weight:900;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.3);animation:fd .7s .3s both;margin-bottom:4px}
+.isub{font-size:14px;color:rgba(255,255,255,.85);line-height:1.7;animation:fd .7s .5s both;margin-bottom:20px}
+@keyframes fd{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+
+.iinp{width:100%;padding:13px 18px;border-radius:50px;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.18);color:#fff;font-family:'Tajawal',sans-serif;font-size:16px;font-weight:500;text-align:center;outline:none;margin-bottom:16px}
+.iinp::placeholder{color:rgba(255,255,255,.5)}
+.iinp:focus{border-color:rgba(255,255,255,.8)}
+
+.i-section{width:100%;margin-bottom:16px;text-align:right}
+.i-sec-lbl{font-size:13px;font-weight:700;color:rgba(255,255,255,.75);margin-bottom:8px;padding-right:4px}
+
+.lvl-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lvl-btn{padding:13px 8px;border-radius:var(--r);border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);color:#fff;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;text-align:center}
+.lvl-btn .li{font-size:24px;display:block;margin-bottom:3px}
+.lvl-btn .ls{font-size:11px;opacity:.75;display:block}
+.lvl-btn.sel{background:rgba(255,255,255,.3);border-color:white;transform:scale(1.03)}
+
+.talent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.talent-grid.kg{grid-template-columns:repeat(4,1fr)}
+.tb2{padding:10px 4px;border-radius:var(--rs);border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);cursor:pointer;transition:all .15s;text-align:center}
+.tb2 .ti{font-size:20px;display:block;margin-bottom:3px}
+.tb2 .tl{font-size:11px;color:rgba(255,255,255,.8);font-weight:700}
+.tb2.sel{background:rgba(255,255,255,.32);border-color:white;transform:scale(1.05)}
+.tb2.hidden{display:none}
+
+.ibtn{width:100%;padding:14px;border-radius:50px;border:none;background:#fff;color:var(--pu);font-family:'Tajawal',sans-serif;font-size:17px;font-weight:900;cursor:pointer;box-shadow:0 4px 22px rgba(0,0,0,.22);transition:transform .15s;margin-top:4px}
+.ibtn:hover{transform:scale(1.03)}
+.conf{position:absolute;pointer-events:none;animation:cfl linear forwards;z-index:2}
+@keyframes cfl{0%{transform:translateY(-10px) rotate(0);opacity:1}100%{transform:translateY(105vh) rotate(720deg);opacity:0}}
+
+/* ===== APP ===== */
+#app{display:none}
+.hdr{background:#fff;border-bottom:1px solid var(--g200);padding:10px 15px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;gap:8px}
+.hdr h1{font-size:17px;font-weight:700;color:var(--pu);white-space:nowrap}
+.hdr-r{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.lbadge{padding:3px 9px;border-radius:50px;font-size:11px;font-weight:700}
+.lbadge.g1{background:#DBEAFE;color:#1D4ED8}
+.lbadge.g2{background:#FEF3C7;color:#92400E}
+.tbadge{padding:3px 9px;border-radius:50px;font-size:11px;font-weight:700;background:var(--pul);color:var(--pu)}
+.ubadge{padding:4px 11px;border-radius:50px;font-size:12px;font-weight:700;background:var(--pul);color:var(--pu)}
+
+.tabs{background:#fff;border-bottom:1px solid var(--g200);display:flex;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:11px 13px;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:500;color:var(--g400);background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s}
+.tab.active{color:var(--pu);border-bottom-color:var(--pu)}
+.tab:hover:not(.active){color:var(--g600)}
+
+.main{max-width:620px;margin:0 auto;padding:14px 13px}
+.pane{display:none}.pane.active{display:block}
+
+/* shared */
+.card{background:#fff;border-radius:var(--r);border:1px solid var(--g200);padding:14px;margin-bottom:11px}
+.card-t{font-size:14px;font-weight:700;margin-bottom:3px}
+.card-s{font-size:13px;color:var(--g400)}
+input[type=text]{width:100%;padding:10px 12px;border-radius:var(--rs);border:1.5px solid var(--g200);font-family:'Tajawal',sans-serif;font-size:14px;color:var(--g800);background:#fff;margin-bottom:8px;outline:none;transition:border-color .15s}
+input[type=text]:focus{border-color:var(--pum)}
+.btn-p{width:100%;padding:11px;border-radius:var(--rs);background:var(--pu);color:#fff;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:opacity .15s}
+.btn-p:hover{opacity:.9}
+.btn-s{padding:7px 12px;border-radius:var(--rs);background:#fff;color:var(--g600);font-family:'Tajawal',sans-serif;font-size:12px;border:1px solid var(--g200);cursor:pointer;transition:all .15s}
+.btn-s:hover{background:var(--g100)}
+.btn-g{padding:7px 12px;border-radius:var(--rs);background:var(--grl);color:var(--gr);font-family:'Tajawal',sans-serif;font-size:12px;font-weight:500;border:1px solid #A7F3D0;cursor:pointer}
+.btn-sv{padding:7px 12px;border-radius:var(--rs);background:#DBEAFE;color:#1D4ED8;font-family:'Tajawal',sans-serif;font-size:12px;font-weight:700;border:1px solid #93C5FD;cursor:pointer}
+.fl{font-size:12px;color:var(--gr);font-weight:700;padding:4px 10px;background:var(--grl);border-radius:var(--rs);border:1px solid #A7F3D0;display:none}
+.fl.on{display:inline-block}
+.sb{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.sts{display:flex;gap:3px}
+.st{font-size:16px;transition:all .2s}.st.off{opacity:.2}
+.prg{font-size:12px;color:var(--g400)}
+.miss{background:var(--pul);border-radius:var(--r);border:1px solid #DDD6FE;padding:13px 16px;margin-bottom:11px;text-align:center}
+.mlb{font-size:11px;color:var(--pu);font-weight:700;letter-spacing:.5px;margin-bottom:4px}
+.mtx{font-size:15px;font-weight:700;line-height:1.5}
+.msb{font-size:13px;color:var(--g600);margin-top:5px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
+.opt{padding:11px 8px;border-radius:var(--rs);border:1.5px solid var(--g200);background:#fff;color:var(--g800);font-family:'Tajawal',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-align:center;transition:all .15s}
+.opt:hover{border-color:var(--pum);background:var(--pul)}
+.opt.correct{background:var(--grl);border-color:#6EE7B7;color:var(--gr);pointer-events:none}
+.opt.wrong{background:var(--rel);border-color:#FCA5A5;color:var(--re);pointer-events:none}
+.opt.dim{opacity:.3;pointer-events:none}
+.fb{padding:9px 13px;border-radius:var(--rs);font-size:13px;font-weight:500;margin-bottom:9px;display:none;line-height:1.5}
+.fb.on{display:block}
+.fb.ok{background:var(--grl);color:var(--gr);border:1px solid #A7F3D0}
+.fb.err{background:var(--rel);color:var(--re);border:1px solid #FCA5A5}
+.nxt{width:100%;padding:10px;border-radius:var(--rs);border:1.5px solid #DDD6FE;background:var(--pul);color:var(--pu);font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:none}
+.nxt.on{display:block}
+.res{text-align:center;padding:24px 13px;display:none}
+.res.on{display:block}
+.re{font-size:48px;margin-bottom:8px}
+.res h2{font-size:21px;font-weight:700;margin-bottom:6px}
+.res p{font-size:13px;color:var(--g600);margin-bottom:16px}
+.rbtn{padding:10px 22px;border-radius:var(--rs);background:var(--pu);color:#fff;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;border:none;cursor:pointer}
+
+/* canvas */
+.cvw{background:var(--g50);border-radius:var(--r);border:1px solid var(--g200);padding:8px;margin-bottom:8px}
+canvas{border-radius:var(--rs);display:block;width:100%;cursor:crosshair}
+.ctools{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.cdot{width:23px;height:23px;border-radius:50%;cursor:pointer;border:2.5px solid transparent;transition:all .15s;flex-shrink:0}
+.cdot.sel{border-color:#111;transform:scale(1.18)}
+.arow{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}
+
+/* studio */
+.stsec{background:#fff;border-radius:var(--r);border:1px solid var(--g200);padding:13px 15px;margin-bottom:10px}
+.stsect{font-size:12px;font-weight:700;color:var(--g600);margin-bottom:8px;display:flex;align-items:center;gap:4px}
+.step-row{display:flex;gap:4px;margin-bottom:11px;flex-wrap:wrap;align-items:center}
+.stp{display:flex;align-items:center;gap:3px;font-size:11px;color:var(--g400)}
+.stp.active{color:var(--pu);font-weight:700}
+.stp.done{color:var(--gr)}
+.stpn{width:18px;height:18px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+.stpsep{flex:1;height:1px;background:var(--g200);min-width:6px}
+.ig{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.ib{padding:9px 3px;border-radius:var(--rs);border:1px solid var(--g200);background:var(--g50);cursor:pointer;text-align:center;transition:all .15s}
+.ib .ii{font-size:18px;display:block;margin-bottom:2px}
+.ib .il{font-size:11px;color:var(--g600);font-weight:700}
+.ib.sel{border:2px solid var(--pu);background:var(--pul)}.ib.sel .il{color:var(--pu)}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.mb{padding:7px 4px;border-radius:var(--rs);border:1px solid var(--g200);background:var(--g50);cursor:pointer;font-size:12px;font-weight:700;text-align:center;transition:all .15s;color:var(--g600)}
+.mb.sel{border:1.5px solid var(--bl);background:var(--bll);color:#1D4ED8}
+.tr{display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.tr label{font-size:12px;color:var(--g600);white-space:nowrap;font-weight:700}
+.tr input[type=range]{flex:1;margin-bottom:0}
+.tv{font-size:12px;font-weight:700;color:var(--pu);min-width:55px}
+.pscr{overflow-x:auto;padding-bottom:5px;margin-bottom:8px}
+.pkeys{display:flex;gap:3px;width:max-content}
+.pk{width:42px;height:68px;border-radius:0 0 var(--rs) var(--rs);border:1px solid var(--g200);cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;font-size:10px;font-weight:700;transition:transform .08s;user-select:none;flex-shrink:0}
+.pk.w{background:#fff;color:var(--g400)}
+.pk.w:hover,.pk.w.lit{background:#EDE9FE;border-color:#A78BFA;color:var(--pu);transform:scale(.97)}
+.pk.b{width:27px;height:44px;background:#1F2937;color:#9CA3AF;margin:0 -15px;z-index:2;position:relative}
+.pk.b:hover,.pk.b.lit{background:#4C1D95;color:white;transform:scale(.95)}
+.tbox{background:var(--g50);border-radius:var(--rs);border:1px solid var(--g200);padding:8px;min-height:50px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:6px}
+.np{padding:4px 8px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:all .1s;position:relative}
+.np:hover{opacity:.7;transform:scale(.94)}
+.np .nx{position:absolute;top:-4px;right:-4px;width:13px;height:13px;border-radius:50%;background:#E24B4A;color:white;font-size:9px;display:none;align-items:center;justify-content:center;font-weight:700}
+.np:hover .nx{display:flex}
+.tet{font-size:12px;color:var(--g400)}
+.bg{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;margin-bottom:5px}
+.bc{height:30px;border-radius:var(--rs);border:1px solid var(--g200);background:var(--g50);cursor:pointer;transition:all .12s;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--g400);font-weight:700}
+.bc.on{background:#EDE9FE;border-color:#A78BFA;color:var(--pu)}
+.bc.lit{background:var(--pu);border-color:var(--pu);color:white}
+.pbtn{padding:8px 14px;border-radius:var(--rs);border:1.5px solid #A78BFA;background:var(--pul);color:#4C1D95;font-family:'Tajawal',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px}
+.pbtn.playing{background:var(--pu);border-color:var(--pu);color:white}
+.ph{height:3px;border-radius:2px;background:var(--pu);width:0%;transition:width .12s linear;margin-bottom:6px}
+.vz{display:flex;gap:2px;align-items:flex-end;height:24px;margin:4px 0}
+.vb{width:8px;border-radius:2px 2px 0 0;background:#A78BFA;height:3px;transition:height .08s}
+.tinp{width:100%;padding:8px 12px;border-radius:var(--rs);border:1.5px solid var(--g200);font-family:'Tajawal',sans-serif;font-size:13px;color:var(--g800);background:#fff;margin-bottom:8px;outline:none}
+.tinp:focus{border-color:#A78BFA}
+.stfb{padding:8px 12px;border-radius:var(--rs);font-size:13px;margin-top:6px;display:none}
+.stfb.on{display:block}
+.stfb.ok{background:var(--grl);color:var(--gr);border:1px solid #A7F3D0}
+.stfb.err{background:var(--rel);color:var(--re);border:1px solid #FCA5A5}
+.crow{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+
+/* think */
+.thbox{background:var(--pul);border-radius:var(--r);border:1px solid #DDD6FE;padding:13px;margin-bottom:8px}
+.thq{font-size:14px;font-weight:700;margin-bottom:4px;line-height:1.5}
+.thh{font-size:12px;color:var(--g600)}
+.ideas{list-style:none;display:flex;flex-direction:column;gap:4px;margin:6px 0;max-height:100px;overflow-y:auto}
+.idea{padding:6px 10px;border-radius:var(--rs);background:#fff;border:1px solid #DDD6FE;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.idel{background:none;border:none;cursor:pointer;color:var(--g400);font-size:16px}
+
+/* reading */
+.story-box{background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-radius:var(--r);border:1px solid #FDE68A;padding:14px;margin-bottom:9px;line-height:1.8;font-size:14px}
+.story-title{font-size:13px;font-weight:700;color:var(--am);margin-bottom:7px}
+
+/* writing */
+.wr-prompt{background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-radius:var(--r);border:1px solid #BBF7D0;padding:12px;margin-bottom:9px}
+.wr-prompt p{font-size:13px;font-weight:700;margin-bottom:4px}
+.wr-prompt span{font-size:12px;color:var(--g600)}
+textarea.wt{width:100%;height:110px;padding:9px 12px;border-radius:var(--rs);border:1.5px solid var(--g200);font-family:'Tajawal',sans-serif;font-size:13px;color:var(--g800);background:#fff;outline:none;resize:vertical;margin-bottom:7px;line-height:1.7}
+textarea.wt:focus{border-color:#6EE7B7}
+.wcount{font-size:11px;color:var(--g400);margin-bottom:7px}
+
+/* math */
+.math-q{background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border-radius:var(--r);border:1px solid #BFDBFE;padding:16px;margin-bottom:9px;text-align:center}
+.mnum{font-size:30px;font-weight:900;color:var(--bl);letter-spacing:2px}
+.mhint{font-size:12px;color:var(--g600);margin-top:5px}
+.math-inp{width:100%;padding:12px;border-radius:var(--rs);border:2px solid var(--g200);font-family:'Tajawal',sans-serif;font-size:18px;font-weight:700;text-align:center;color:var(--g800);background:#fff;outline:none;margin-bottom:8px}
+.math-inp:focus{border-color:#93C5FD}
+
+/* initiative */
+.init-sc{background:linear-gradient(135deg,#FDF2F8,#FCE7F3);border-radius:var(--r);border:1px solid #FBCFE8;padding:13px;margin-bottom:9px}
+.init-sc .sc-t{font-size:12px;font-weight:700;color:var(--pk);margin-bottom:5px}
+.init-sc p{font-size:13px;color:var(--g800);line-height:1.6}
+.init-opts{display:flex;flex-direction:column;gap:7px;margin-bottom:9px}
+.iopt{padding:11px 13px;border-radius:var(--rs);border:1.5px solid var(--g200);background:#fff;color:var(--g800);font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;text-align:right;transition:all .15s;line-height:1.5}
+.iopt:hover{border-color:#F9A8D4;background:var(--pkl)}
+.iopt.best{background:var(--grl);border-color:#6EE7B7;color:var(--gr);pointer-events:none}
+.iopt.ok2{background:var(--aml);border-color:#FDE68A;color:var(--am);pointer-events:none}
+.iopt.dim{opacity:.35;pointer-events:none}
+
+/* tech */
+.tech-q{background:linear-gradient(135deg,#ECFDF5,#CCFBF1);border-radius:var(--r);border:1px solid #A7F3D0;padding:14px;margin-bottom:9px}
+.tech-q .tq-icon{font-size:32px;display:block;text-align:center;margin-bottom:8px}
+.tech-q .tq-txt{font-size:14px;font-weight:700;color:var(--g800);text-align:center;line-height:1.5}
+.tech-opts{display:flex;flex-direction:column;gap:7px;margin-bottom:9px}
+.topt{padding:11px 13px;border-radius:var(--rs);border:1.5px solid var(--g200);background:#fff;color:var(--g800);font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;text-align:right;transition:all .15s;display:flex;align-items:center;gap:10px}
+.topt .to-icon{font-size:18px;flex-shrink:0}
+.topt:hover{border-color:#6EE7B7;background:var(--tel)}
+.topt.correct{background:var(--grl);border-color:#6EE7B7;color:var(--gr);pointer-events:none}
+.topt.wrong{background:var(--rel);border-color:#FCA5A5;color:var(--re);pointer-events:none}
+.topt.dim{opacity:.35;pointer-events:none}
+
+/* teacher */
+.ldot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gr);margin-left:4px;animation:lp 1.5s infinite}
+@keyframes lp{0%,100%{opacity:1}50%{opacity:.3}}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:11px}
+.sbox{background:#fff;border:1px solid var(--g200);border-radius:var(--rs);padding:11px;text-align:center}
+.sn{font-size:22px;font-weight:700;color:var(--pu)}.sl{font-size:11px;color:var(--g400);margin-top:2px}
+.sc{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:12px;margin-bottom:8px}
+.snam{font-size:14px;font-weight:700;color:var(--pu);margin-bottom:2px}
+.slvl{display:inline-block;padding:2px 8px;border-radius:50px;font-size:11px;font-weight:700;margin-left:4px}
+.slvl.g1{background:#DBEAFE;color:#1D4ED8}
+.slvl.g2{background:#FEF3C7;color:#92400E}
+.stalent{display:inline-block;padding:2px 8px;border-radius:50px;font-size:11px;font-weight:700;background:var(--pul);color:var(--pu);margin-bottom:5px}
+.smeta{font-size:11px;color:var(--g400);margin-bottom:6px}
+.arow2{padding:6px 0;border-bottom:1px solid var(--g100)}
+.arow2:last-child{border-bottom:none}
+.agame{font-size:10px;color:var(--g400);font-weight:700}
+.aq2{font-size:12px;color:var(--g600);margin:2px 0}
+.aa2{font-size:13px;font-weight:700}
+.aimg2{max-width:100%;border-radius:6px;margin-top:4px;border:1px solid var(--g200)}
+.nodata{text-align:center;padding:30px 16px;color:var(--g400);font-size:13px}
+.tact{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.exparea textarea{width:100%;height:160px;padding:10px;border-radius:var(--rs);border:1px solid var(--g200);font-size:11px;direction:rtl;resize:vertical;margin-top:8px;color:var(--g800)}
+.ldg{text-align:center;padding:24px;color:var(--g400)}
+.spin{display:inline-block;width:18px;height:18px;border:2px solid var(--g200);border-top-color:var(--pu);border-radius:50%;animation:spin .6s linear infinite;margin-bottom:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+  <div class="ibg" id="starbg"></div>
+  <div class="orb" style="width:180px;height:180px;background:#FCD34D;top:-50px;right:-50px;animation-duration:5s"></div>
+  <div class="orb" style="width:140px;height:140px;background:#F9A8D4;bottom:20px;left:-40px;animation-duration:7s;animation-delay:-2s"></div>
+
+  <div class="i-scroll">
+    <div class="ilogo">🌟</div>
+    <div class="ititle">نجوم الموهبة</div>
+    <div class="isub">اكتب اسمك، اختر مرحلتك وموهبتك!</div>
+
+    <input class="iinp" id="iname" placeholder="✏️ اكتب اسمك هنا..." autocomplete="off"/>
+
+    <div class="i-section">
+      <div class="i-sec-lbl">📚 اختر مرحلتك</div>
+      <div class="lvl-row">
+        <div class="lvl-btn sel" id="lvl-g1" onclick="selLvl('g1',this)">
+          <span class="li">📚</span>حلقة أولى<span class="ls">الصف 1–3</span>
+        </div>
+        <div class="lvl-btn" id="lvl-g2" onclick="selLvl('g2',this)">
+          <span class="li">🌱</span>روضة ثانية<span class="ls">KG2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="i-section">
+      <div class="i-sec-lbl">🎯 اختر موهبتك</div>
+      <div class="talent-grid" id="talent-grid">
+        <!-- حلقة أولى -->
+        <div class="tb2 sel" data-talent="iq" data-levels="g1" onclick="selTalent(this)"><span class="ti">🧠</span><div class="tl">الذكاء</div></div>
+        <div class="tb2" data-talent="think" data-levels="g1" onclick="selTalent(this)"><span class="ti">💡</span><div class="tl">الإبداع</div></div>
+        <div class="tb2" data-talent="art" data-levels="g1 g2" onclick="selTalent(this)"><span class="ti">🎨</span><div class="tl">الرسم</div></div>
+        <div class="tb2" data-talent="music" data-levels="g1" onclick="selTalent(this)"><span class="ti">🎵</span><div class="tl">الموسيقى</div></div>
+        <div class="tb2" data-talent="reading" data-levels="g1 g2" onclick="selTalent(this)"><span class="ti">📖</span><div class="tl">القراءة</div></div>
+        <div class="tb2" data-talent="writing" data-levels="g1 g2" onclick="selTalent(this)"><span class="ti">✍️</span><div class="tl">الكتابة</div></div>
+        <div class="tb2" data-talent="math" data-levels="g1" onclick="selTalent(this)"><span class="ti">🔢</span><div class="tl">الرياضيات</div></div>
+        <div class="tb2" data-talent="initiative" data-levels="g1 g2" onclick="selTalent(this)"><span class="ti">🚀</span><div class="tl">المبادرة</div></div>
+        <div class="tb2" data-talent="tech" data-levels="g1 g2" onclick="selTalent(this)"><span class="ti">💻</span><div class="tl">التكنولوجيا</div></div>
+      </div>
+    </div>
+
+    <button class="ibtn" onclick="enterApp()">يلا نبدأ! 🚀</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header class="hdr">
+    <h1>نجوم الموهبة ✨</h1>
+    <div class="hdr-r">
+      <span class="lbadge" id="lbadge">—</span>
+      <span class="tbadge" id="tbadge">—</span>
+      <div class="ubadge" id="uname">—</div>
+    </div>
+  </header>
+  <div class="tabs" id="tabs-bar"></div>
+  <div class="main">
+
+    <!-- ذكاء -->
+    <div id="iq" class="pane">
+      <div class="sb"><div class="sts" id="iq-st"></div><span class="prg" id="iq-pg"></span></div>
+      <div class="miss"><div class="mlb">سؤال الذكاء</div><div class="mtx" id="iq-q"></div><div class="msb" id="iq-sub"></div></div>
+      <div class="opts" id="iq-opts"></div>
+      <div class="fb" id="iq-fb"></div>
+      <button class="nxt" id="iq-nxt" onclick="nextIQ()">التالي ←</button>
+      <div class="res" id="iq-res"><div class="re" id="iq-re">🏆</div><h2 id="iq-rt"></h2><p id="iq-rp"></p><button class="rbtn" onclick="resetIQ()">العب مرة أخرى</button></div>
+    </div>
+
+    <!-- إبداع -->
+    <div id="think" class="pane">
+      <div class="sb"><div class="sts" id="tk-st"></div><span class="prg" id="tk-pg"></span></div>
+      <div class="thbox"><div class="thq" id="tk-q"></div><div class="thh" id="tk-h"></div></div>
+      <input type="text" id="iidea" placeholder="اكتب فكرتك هنا..."/>
+      <div style="margin-bottom:7px"><button class="btn-s" onclick="addIdea()">أضف الفكرة +</button></div>
+      <ul class="ideas" id="idlist"></ul>
+      <div class="fb" id="tk-fb"></div>
+      <button class="btn-p" onclick="submitThink()">أرسل أفكاري ✓</button>
+      <div class="res" id="tk-res"><div class="re">🌟</div><h2>مفكر رائع!</h2><p id="tk-rp"></p><button class="rbtn" onclick="resetThink()">العب مرة أخرى</button></div>
+    </div>
+
+    <!-- رسم -->
+    <div id="art" class="pane">
+      <div class="card"><div class="card-t" id="artch">ارسم: منظر طبيعي فيه جبل وشجرة ونهر</div><div class="card-s">استخدم الألوان لتعبر عن مشاعرك</div></div>
+      <div class="cvw">
+        <canvas id="cv" height="250"></canvas>
+        <div class="ctools">
+          <div class="cdot sel" style="background:#DC2626" data-color="#DC2626" onclick="pc(this)"></div>
+          <div class="cdot" style="background:#D97706" data-color="#D97706" onclick="pc(this)"></div>
+          <div class="cdot" style="background:#059669" data-color="#059669" onclick="pc(this)"></div>
+          <div class="cdot" style="background:#2563EB" data-color="#2563EB" onclick="pc(this)"></div>
+          <div class="cdot" style="background:#7C3AED" data-color="#7C3AED" onclick="pc(this)"></div>
+          <div class="cdot" style="background:#DB2777" data-color="#DB2777" onclick="pc(this)"></div>
+          <div class="cdot" style="background:#111827" data-color="#111827" onclick="pc(this)"></div>
+          <div class="cdot" style="background:#FFF;border:1.5px solid #ccc" data-color="#FFFFFF" onclick="pc(this)"></div>
+          <input type="range" min="2" max="22" value="5" id="bsz" style="width:62px;margin-right:4px">
+        </div>
+      </div>
+      <div class="arow">
+        <button class="btn-sv" onclick="saveDrawing()">💾 احفظ</button>
+        <button class="btn-s" onclick="clearCv()">🗑 مسح</button>
+        <button class="btn-s" onclick="nextArt()">تحدي جديد ↺</button>
+        <span class="fl" id="art-fl">تم الحفظ ✓</span>
+      </div>
+    </div>
+
+    <!-- موسيقى -->
+    <div id="music" class="pane">
+      <div class="step-row">
+        <div class="stp active" id="stp1"><div class="stpn">1</div><span>الآلة</span></div><div class="stpsep"></div>
+        <div class="stp" id="stp2"><div class="stpn">2</div><span>المزاج</span></div><div class="stpsep"></div>
+        <div class="stp" id="stp3"><div class="stpn">3</div><span>اللحن</span></div><div class="stpsep"></div>
+        <div class="stp" id="stp4"><div class="stpn">4</div><span>الإيقاع</span></div><div class="stpsep"></div>
+        <div class="stp" id="stp5"><div class="stpn">5</div><span>الحفظ</span></div>
+      </div>
+      <div class="stsec">
+        <div class="stsect">🎸 اختر آلتك</div>
+        <div class="ig">
+          <div class="ib sel" data-inst="piano" onclick="selInst(this)"><span class="ii">🎹</span><div class="il">بيانو</div></div>
+          <div class="ib" data-inst="oud" onclick="selInst(this)"><span class="ii">🪕</span><div class="il">عود</div></div>
+          <div class="ib" data-inst="mizmar" onclick="selInst(this)"><span class="ii">🎷</span><div class="il">مزمار</div></div>
+          <div class="ib" data-inst="drum" onclick="selInst(this)"><span class="ii">🥁</span><div class="il">طبل</div></div>
+        </div>
+      </div>
+      <div class="stsec">
+        <div class="stsect">🌈 مزاج اللحن</div>
+        <div class="tr"><label>السرعة:</label><input type="range" min="60" max="180" value="100" step="1" id="tempo-sl" oninput="updTempo(this.value)"><span class="tv" id="tempo-v">100 نبضة/د</span></div>
+        <div class="mg">
+          <div class="mb" data-mood="happy" onclick="selMood(this)">😄 مبهج</div>
+          <div class="mb sel" data-mood="calm" onclick="selMood(this)">😌 هادئ</div>
+          <div class="mb" data-mood="exciting" onclick="selMood(this)">🔥 متحمس</div>
+          <div class="mb" data-mood="sad" onclick="selMood(this)">💙 حنين</div>
+          <div class="mb" data-mood="funny" onclick="selMood(this)">😜 مضحك</div>
+          <div class="mb" data-mood="mystery" onclick="selMood(this)">🌙 غامض</div>
+        </div>
+      </div>
+      <div class="stsec">
+        <div class="stsect">🎼 ابنِ لحنك</div>
+        <div class="pscr"><div class="pkeys" id="piano-keys"></div></div>
+        <div class="tbox" id="notes-track"><span class="tet">اضغط البيانو لإضافة نوتات...</span></div>
+        <div class="vz" id="viz-bars"></div>
+        <div class="ph" id="playhead"></div>
+        <div class="crow">
+          <button class="pbtn" id="play-btn" onclick="togglePlay()"><span id="play-ico">▶</span><span id="play-lbl"> تشغيل</span></button>
+          <button class="btn-s" onclick="clearMel()">🗑 مسح</button>
+        </div>
+      </div>
+      <div class="stsec">
+        <div class="stsect">🥁 الإيقاع</div>
+        <div style="font-size:11px;color:var(--g400);margin-bottom:6px">اضغط الخانات لتفعيلها</div>
+        <div style="font-size:11px;font-weight:700;color:var(--g600);margin-bottom:4px">طبلة:</div>
+        <div class="bg" id="beat-drum"></div>
+        <div style="font-size:11px;font-weight:700;color:var(--g600);margin:6px 0 4px">باص:</div>
+        <div class="bg" id="beat-bass"></div>
+      </div>
+      <div class="stsec">
+        <div class="stsect">💾 احفظ لحنك</div>
+        <input class="tinp" id="track-title" placeholder="اكتب اسماً للحنك..."/>
+        <div class="crow">
+          <button class="pbtn" id="final-play-btn" onclick="togglePlay()"><span>▶</span> استمع</button>
+          <button class="btn-sv" onclick="saveStudio()">💾 أرسل للمعلم</button>
+        </div>
+        <div class="stfb" id="studio-fb"></div>
+      </div>
+    </div>
+
+    <!-- قراءة -->
+    <div id="reading" class="pane">
+      <div class="sb"><div class="sts" id="rd-st"></div><span class="prg" id="rd-pg"></span></div>
+      <div class="story-box" id="rd-story"></div>
+      <div class="miss" style="margin-bottom:9px"><div class="mlb">السؤال</div><div class="mtx" id="rd-q"></div></div>
+      <div class="opts" id="rd-opts"></div>
+      <div class="fb" id="rd-fb"></div>
+      <button class="nxt" id="rd-nxt" onclick="nextRD()">التالي ←</button>
+      <div class="res" id="rd-res"><div class="re">📖</div><h2 id="rd-rt"></h2><p id="rd-rp"></p><button class="rbtn" onclick="resetRD()">العب مرة أخرى</button></div>
+    </div>
+
+    <!-- كتابة -->
+    <div id="writing" class="pane">
+      <div class="sb"><div class="sts" id="wr-st"></div><span class="prg" id="wr-pg"></span></div>
+      <div class="wr-prompt" id="wr-prompt"></div>
+      <textarea class="wt" id="wr-text" placeholder="اكتب هنا..."></textarea>
+      <div class="wcount" id="wr-count">0 كلمة</div>
+      <div class="fb" id="wr-fb"></div>
+      <button class="btn-p" onclick="submitWriting()">أرسل ✓</button>
+      <div class="res" id="wr-res"><div class="re">✍️</div><h2>كاتب موهوب!</h2><p id="wr-rp"></p><button class="rbtn" onclick="resetWR()">العب مرة أخرى</button></div>
+    </div>
+
+    <!-- رياضيات -->
+    <div id="math" class="pane">
+      <div class="sb"><div class="sts" id="mt-st"></div><span class="prg" id="mt-pg"></span></div>
+      <div class="math-q"><div class="mnum" id="mt-q">—</div><div class="mhint" id="mt-hint"></div></div>
+      <input class="math-inp" type="number" id="mt-ans" placeholder="إجابتك..." inputmode="numeric"/>
+      <div class="fb" id="mt-fb"></div>
+      <button class="btn-p" onclick="checkMath()">تحقق ✓</button>
+      <button class="nxt" id="mt-nxt" onclick="nextMT()">التالي ←</button>
+      <div class="res" id="mt-res"><div class="re">🔢</div><h2 id="mt-rt"></h2><p id="mt-rp"></p><button class="rbtn" onclick="resetMT()">العب مرة أخرى</button></div>
+    </div>
+
+    <!-- مبادرة -->
+    <div id="initiative" class="pane">
+      <div class="sb"><div class="sts" id="in-st"></div><span class="prg" id="in-pg"></span></div>
+      <div class="init-sc" id="in-sc"></div>
+      <div class="init-opts" id="in-opts"></div>
+      <div class="fb" id="in-fb"></div>
+      <button class="nxt" id="in-nxt" onclick="nextIN()">التالي ←</button>
+      <div class="res" id="in-res"><div class="re">🚀</div><h2 id="in-rt"></h2><p id="in-rp"></p><button class="rbtn" onclick="resetIN()">العب مرة أخرى</button></div>
+    </div>
+
+    <!-- تكنولوجيا -->
+    <div id="tech" class="pane">
+      <div class="sb"><div class="sts" id="tc-st"></div><span class="prg" id="tc-pg"></span></div>
+      <div class="tech-q" id="tc-q-box"></div>
+      <div class="tech-opts" id="tc-opts"></div>
+      <div class="fb" id="tc-fb"></div>
+      <button class="nxt" id="tc-nxt" onclick="nextTC()">التالي ←</button>
+      <div class="res" id="tc-res"><div class="re">💻</div><h2 id="tc-rt"></h2><p id="tc-rp"></p><button class="rbtn" onclick="resetTC()">العب مرة أخرى</button></div>
+    </div>
+
+    <!-- المعلم -->
+    <div id="teacher" class="pane" style="display:none!important">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;flex-wrap:wrap;gap:6px">
+        <div><h2 style="font-size:16px;font-weight:700">لوحة المعلم</h2><p style="font-size:12px;color:var(--g400)">تتحدث كل 10 ثوانٍ <span class="ldot"></span></p></div>
+        <button class="btn-g" onclick="loadTeacher()">تحديث</button>
+      </div>
+      <div class="sgrid">
+        <div class="sbox"><div class="sn" id="ss">0</div><div class="sl">طلاب</div></div>
+        <div class="sbox"><div class="sn" id="sr">0</div><div class="sl">نشاط</div></div>
+        <div class="sbox"><div class="sn" id="sa">0%</div><div class="sl">الدقة</div></div>
+      </div>
+      <div id="tlist"><div class="ldg"><div class="spin"></div><br>جاري التحميل...</div></div>
+      <div class="tact">
+        <button class="btn-g" onclick="exportData()">تصدير</button>
+        <button class="btn-s" onclick="clearAll()">مسح الكل</button>
+      </div>
+      <div class="exparea" id="exparea" style="display:none"><textarea id="exptxt"></textarea></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ===== DB ===== */
+const KA='gft-v6-ans',KD='gft-v6-draw',KM='gft-v6-music';
+async function dbGet(k){try{const r=await window.storage.get(k,true);return r?JSON.parse(r.value):[];}catch{return[];}}
+async function dbSet(k,a){try{await window.storage.set(k,JSON.stringify(a),true);}catch{}}
+async function dbDel(k){try{await window.storage.delete(k,true);}catch{}}
+async function recAns(game,q,a,sc,tot){const all=await dbGet(KA);all.push({name:GN,lvl:GL,talent:GT,game,q,a,sc,tot,time:new Date().toLocaleTimeString('ar'),ts:Date.now()});await dbSet(KA,all);}
+async function recDraw(ch,du){const all=await dbGet(KD);all.push({name:GN,lvl:GL,talent:GT,ch,du,time:new Date().toLocaleTimeString('ar'),ts:Date.now()});await dbSet(KD,all);}
+async function recMusic(title,detail){const all=await dbGet(KM);all.push({name:GN,lvl:GL,talent:GT,title,detail,time:new Date().toLocaleTimeString('ar'),ts:Date.now()});await dbSet(KM,all);}
+
+/* ===== INTRO ===== */
+let GN='',GL='g1',GT='iq';
+
+// Stars
+(function(){const bg=document.getElementById('starbg');for(let i=0;i<20;i++){const s=document.createElement('div');s.className='ist';s.textContent=['★','✦','✧','⭐','💫'][Math.floor(Math.random()*5)];s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;font-size:${10+Math.random()*14}px;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*2}s`;bg.appendChild(s);}})();
+
+// Talent config per level
+const TALENT_CFG = {
+  g1: ['iq','think','art','music','reading','writing','math','initiative','tech'],
+  g2: ['art','reading','writing','initiative','tech']
+};
+const TALENT_LABELS = {
+  iq:{icon:'🧠',label:'الذكاء'},think:{icon:'💡',label:'الإبداع'},art:{icon:'🎨',label:'الرسم'},
+  music:{icon:'🎵',label:'الموسيقى'},reading:{icon:'📖',label:'القراءة'},
+  writing:{icon:'✍️',label:'الكتابة'},math:{icon:'🔢',label:'الرياضيات'},
+  initiative:{icon:'🚀',label:'المبادرة'},tech:{icon:'💻',label:'التكنولوجيا'}
+};
+
+function selLvl(lvl,el){
+  GL=lvl;
+  document.querySelectorAll('.lvl-btn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  updateTalentGrid();
+}
+
+function updateTalentGrid(){
+  const allowed=TALENT_CFG[GL];
+  document.querySelectorAll('.tb2').forEach(b=>{
+    const levels=b.dataset.levels.split(' ');
+    b.classList.toggle('hidden',!levels.includes(GL));
+    if(!levels.includes(GL)&&b.classList.contains('sel')){b.classList.remove('sel');}
+  });
+  // Auto-select first visible talent
+  const visible=document.querySelectorAll('.tb2:not(.hidden)');
+  const hasSel=[...visible].some(b=>b.classList.contains('sel'));
+  if(!hasSel&&visible.length){visible[0].classList.add('sel');GT=visible[0].dataset.talent;}
+}
+
+function selTalent(el){
+  if(el.classList.contains('hidden'))return;
+  document.querySelectorAll('.tb2').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  GT=el.dataset.talent;
+}
+
+function confetti(){const colors=['#FCD34D','#F87171','#6EE7B7','#93C5FD','#F9A8D4','#A78BFA'];const p=document.getElementById('intro');for(let i=0;i<55;i++){const c=document.createElement('div');c.className='conf';const sz=5+Math.random()*9;c.style.cssText=`left:${Math.random()*100}%;top:0;width:${sz}px;height:${sz}px;background:${colors[i%colors.length]};border-radius:${Math.random()>.5?'50%':'3px'};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.5}s`;p.appendChild(c);setTimeout(()=>c.remove(),3600);}}
+
+function enterApp(){
+  const n=document.getElementById('iname').value.trim();
+  if(!n){document.getElementById('iname').style.borderColor='#FCA5A5';document.getElementById('iname').placeholder='✏️ اكتب اسمك أولاً!';return;}
+  const sel=document.querySelector('.tb2.sel:not(.hidden)');
+  if(!sel){alert('اختر موهبتك أولاً!');return;}
+  GN=n;GT=sel.dataset.talent;confetti();
+  setTimeout(()=>{
+    document.getElementById('intro').classList.add('out');
+    setTimeout(()=>{
+      document.getElementById('intro').style.display='none';
+      document.getElementById('app').style.display='block';
+      document.getElementById('uname').textContent=n;
+      const lb=document.getElementById('lbadge');
+      lb.textContent=GL==='g1'?'حلقة أولى':'روضة ثانية';
+      lb.className='lbadge '+GL;
+      const cfg=TALENT_LABELS[GT]||{icon:'⭐',label:GT};
+      document.getElementById('tbadge').textContent=cfg.icon+' '+cfg.label;
+      buildTabs();
+      initAll();
+      openTalent(GT);
+    },480);
+  },640);
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('intro').style.display!=='none')enterApp();});
+
+/* ===== TABS ===== */
+function buildTabs(){
+  const bar=document.getElementById('tabs-bar');bar.innerHTML='';
+  const allowed=TALENT_CFG[GL];
+  allowed.forEach(t=>{
+    const cfg=TALENT_LABELS[t];
+    const btn=document.createElement('button');
+    btn.className='tab'+(t===GT?' active':'');
+    btn.textContent=cfg.icon+' '+cfg.label;
+    btn.onclick=()=>sw(t,btn);
+    bar.appendChild(btn);
+  });
+  // Teacher tab hidden in student version
+}
+
+function sw(id,btn){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+  if(id==='teacher')loadTeacher();
+}
+
+function openTalent(t){
+  const btn=document.querySelector(`#tabs-bar .tab`);
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById(t).classList.add('active');
+  document.querySelectorAll('.tab').forEach(b=>{if(b.textContent.includes(TALENT_LABELS[t]?.label))b.classList.add('active');});
+}
+
+function mkSt(id,n,tot){const el=document.getElementById(id);el.innerHTML='';for(let i=0;i<tot;i++){const s=document.createElement('span');s.className='st'+(i<n?'':' off');s.textContent='★';el.appendChild(s);}}
+function fl(id){const el=document.getElementById(id);el.classList.add('on');setTimeout(()=>el.classList.remove('on'),2200);}
+
+/* ===== IQ ===== */
+const IQ_G1=[
+  {q:'ما الرقم التالي: 2، 4، 8، 16، ...؟',sub:'',opts:['24','32','28','20'],ans:1,exp:'كل رقم يتضاعف! 16×2=32'},
+  {q:'أي شكل لا ينتمي للمجموعة؟',sub:'مثلث، مربع، دائرة، مستطيل',opts:['مثلث','مربع','دائرة','مستطيل'],ans:2,exp:'الدائرة الوحيدة بلا زوايا!'},
+  {q:'إذا كان عمر أحمد 10 وأكبر من سعيد بـ3، كم عمر سعيد؟',sub:'',opts:['6','7','8','13'],ans:1,exp:'10 − 3 = 7 سنوات'},
+  {q:'ما الكلمة الغريبة؟',sub:'تفاحة، موزة، جزرة، برتقالة',opts:['تفاحة','موزة','جزرة','برتقالة'],ans:2,exp:'الجزرة خضروات!'},
+  {q:'أكمل النمط: ○ ● ○ ● ○ ___',sub:'',opts:['○','●','◇','■'],ans:1,exp:'النمط يتبادل!'},
+  {q:'5 تفاحات أعطيت نصفهن. كم بقي؟',sub:'',opts:['2','2.5','3','5'],ans:1,exp:'5 ÷ 2 = 2.5'},
+];
+let qi=0,qs=0,qa=false;
+function initIQ(){qi=0;qs=0;mkSt('iq-st',0,IQ_G1.length);loadIQ();}
+function loadIQ(){qa=false;const q=IQ_G1[qi];document.getElementById('iq-q').textContent=q.q;document.getElementById('iq-sub').textContent=q.sub||'';document.getElementById('iq-pg').textContent=`${qi+1}/${IQ_G1.length}`;const op=document.getElementById('iq-opts');op.innerHTML='';q.opts.forEach((o,i)=>{const b=document.createElement('button');b.className='opt';b.textContent=o;b.onclick=()=>ansIQ(i);op.appendChild(b);});document.getElementById('iq-fb').className='fb';document.getElementById('iq-nxt').className='nxt';}
+function ansIQ(idx){if(qa)return;qa=true;const q=IQ_G1[qi];const ok=idx===q.ans;document.querySelectorAll('#iq-opts .opt').forEach((b,i)=>{if(i===q.ans)b.classList.add('correct');else if(i===idx&&!ok)b.classList.add('wrong');else b.classList.add('dim');});const fb=document.getElementById('iq-fb');if(ok){qs++;mkSt('iq-st',qs,IQ_G1.length);fb.className='fb ok on';fb.textContent='✓ صحيح! '+q.exp;}else{fb.className='fb err on';fb.textContent='✗ الجواب: '+q.opts[q.ans]+' — '+q.exp;}recAns('الذكاء',q.q,q.opts[idx]+(ok?' ✓':' ✗'),ok?1:0,1);const nb=document.getElementById('iq-nxt');nb.className='nxt on';nb.textContent=qi<IQ_G1.length-1?'التالي ←':'النتيجة';}
+function nextIQ(){qi++;if(qi>=IQ_G1.length){document.getElementById('iq-res').classList.add('on');const p=Math.round(qs/IQ_G1.length*100);document.getElementById('iq-re').textContent=qs>=5?'🏆':qs>=4?'🧠':'⭐';document.getElementById('iq-rt').textContent=qs===IQ_G1.length?'ذكاء استثنائي!':qs>=4?'ذكاء متقدم!':'استمر!';document.getElementById('iq-rp').textContent=`${GN} — ${qs}/${IQ_G1.length} (${p}%)`;}else loadIQ();}
+function resetIQ(){document.getElementById('iq-res').classList.remove('on');initIQ();}
+
+/* ===== THINK ===== */
+const TK_Q=[
+  {q:'ما الأشياء التي يمكنك فعلها بورقة بيضاء فارغة؟',h:'💡 كل فكرة = نجمة!'},
+  {q:'لو صممت مدرسة الأحلام، ماذا ستضع فيها؟',h:'💡 اجمع المتعة والتعلم!'},
+  {q:'اخترع 3 ألوان جديدة مع أسمائها',h:'💡 الاسم + الوصف = رائع!'},
+];
+let ti=0,tids=[],ts2=0;
+function initThink(){ti=0;ts2=0;mkSt('tk-st',0,TK_Q.length*3);loadTQ();}
+function loadTQ(){tids=[];const q=TK_Q[ti];document.getElementById('tk-q').textContent=q.q;document.getElementById('tk-h').textContent=q.h;document.getElementById('idlist').innerHTML='';document.getElementById('iidea').value='';document.getElementById('tk-fb').className='fb';document.getElementById('tk-pg').textContent=`${ti+1}/${TK_Q.length}`;}
+function addIdea(){const inp=document.getElementById('iidea');const v=inp.value.trim();if(!v)return;tids.push(v);const li=document.createElement('li');li.className='idea';const idx=tids.length-1;li.innerHTML=`<span>${v}</span><button class="idel" onclick="delIdea(${idx},this)">×</button>`;document.getElementById('idlist').appendChild(li);inp.value='';}
+function delIdea(idx,btn){tids.splice(idx,1);btn.parentElement.remove();}
+function submitThink(){if(!tids.length){const f=document.getElementById('tk-fb');f.className='fb err on';f.textContent='أضف فكرة!';return;}const pts=Math.min(tids.length,3);ts2+=pts;mkSt('tk-st',ts2,TK_Q.length*3);const f=document.getElementById('tk-fb');f.className='fb ok on';f.textContent=`رائع! ${tids.length} فكرة — ${pts} نجوم!`;recAns('الإبداع',TK_Q[ti].q,tids.join(' | '),pts,3);setTimeout(()=>{ti++;if(ti>=TK_Q.length){document.getElementById('tk-res').classList.add('on');document.getElementById('tk-rp').textContent=`${GN} — ${ts2} نجمة!`;}else{f.className='fb';loadTQ();}},1800);}
+function resetThink(){document.getElementById('tk-res').classList.remove('on');initThink();}
+
+/* ===== ART ===== */
+const ARCHS_G1=['ارسم: منظر طبيعي فيه جبل وشجرة ونهر','ارسم: حيوانك المفضل','ارسم: مدينة مستقبلية','ارسم: وجه سعيد','ارسم: فضاء بكواكب ملونة'];
+const ARCHS_G2=['ارسم: بيتك الجميل','ارسم: حيوانك المفضل','ارسم: الشمس والسحاب','ارسم: أسرتك','ارسم: شيء تحبه'];
+let ai=0,drw=false,lx=0,ly=0,cc='#DC2626';
+function initCv(){const c=document.getElementById('cv');c.width=c.parentElement.clientWidth-16;const ctx=c.getContext('2d');ctx.fillStyle='#F9FAFB';ctx.fillRect(0,0,c.width,c.height);const ARCHS=GL==='g1'?ARCHS_G1:ARCHS_G2;document.getElementById('artch').textContent=ARCHS[0];const gp=e=>{const r=c.getBoundingClientRect();const sc=c.width/r.width;if(e.touches)return{x:(e.touches[0].clientX-r.left)*sc,y:(e.touches[0].clientY-r.top)*sc};return{x:(e.clientX-r.left)*sc,y:(e.clientY-r.top)*sc};};const draw=e=>{if(!drw)return;const ctx=c.getContext('2d');const p=gp(e);ctx.strokeStyle=cc;ctx.lineWidth=+document.getElementById('bsz').value;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(p.x,p.y);ctx.stroke();lx=p.x;ly=p.y;};c.onmousedown=e=>{drw=true;const p=gp(e);lx=p.x;ly=p.y;};c.onmousemove=draw;c.onmouseup=()=>drw=false;c.onmouseleave=()=>drw=false;c.addEventListener('touchstart',e=>{e.preventDefault();drw=true;const p=gp(e);lx=p.x;ly=p.y;},{passive:false});c.addEventListener('touchmove',e=>{e.preventDefault();draw(e);},{passive:false});c.addEventListener('touchend',()=>drw=false);}
+function pc(el){document.querySelectorAll('.cdot').forEach(d=>d.classList.remove('sel'));el.classList.add('sel');cc=el.dataset.color;}
+function clearCv(){const c=document.getElementById('cv');const ctx=c.getContext('2d');ctx.fillStyle='#F9FAFB';ctx.fillRect(0,0,c.width,c.height);}
+function nextArt(){const ARCHS=GL==='g1'?ARCHS_G1:ARCHS_G2;ai=(ai+1)%ARCHS.length;document.getElementById('artch').textContent=ARCHS[ai];clearCv();}
+function saveDrawing(){recDraw(document.getElementById('artch').textContent,document.getElementById('cv').toDataURL('image/jpeg',.55));fl('art-fl');}
+
+/* ===== STUDIO ===== */
+const ND=[{n:'دو',f:261,c:'#E24B4A',bg:'#FCEBEB',t:'w'},{n:'دو#',f:277,c:'#444',bg:'#2C2C2A',t:'b'},{n:'ري',f:293,c:'#D85A30',bg:'#FAECE7',t:'w'},{n:'ري#',f:311,c:'#444',bg:'#2C2C2A',t:'b'},{n:'مي',f:329,c:'#639922',bg:'#EAF3DE',t:'w'},{n:'فا',f:349,c:'#378ADD',bg:'#E6F1FB',t:'w'},{n:'فا#',f:370,c:'#444',bg:'#2C2C2A',t:'b'},{n:'صول',f:392,c:'#7F77DD',bg:'#EEEDFE',t:'w'},{n:'صول#',f:415,c:'#444',bg:'#2C2C2A',t:'b'},{n:'لا',f:440,c:'#D4537E',bg:'#FBEAF0',t:'w'},{n:'لا#',f:466,c:'#444',bg:'#2C2C2A',t:'b'},{n:'سي',f:493,c:'#0F6E56',bg:'#E1F5EE',t:'w'},{n:'دو↑',f:523,c:'#534AB7',bg:'#EEEDFE',t:'w'}];
+const ICFG={piano:{type:'sine',atk:.01,dec:.3,rel:.5},oud:{type:'sawtooth',atk:.01,dec:.25,rel:.6},mizmar:{type:'square',atk:.03,dec:.15,rel:.5},drum:{type:'triangle',atk:.001,dec:.08,rel:.15}};
+let sInst='piano',sMood='calm',sBpm=100,sMel=[],sDrum=new Array(8).fill(false),sBass=new Array(8).fill(false),sPlay=false,sTimer=null,sStep=0,sACtx=null;
+function gAC(){if(!sACtx)sACtx=new(window.AudioContext||window.webkitAudioContext)();return sACtx;}
+function pFreq(freq,dur,inst){const ctx=gAC();if(inst==='drum'){const buf=ctx.createBuffer(1,ctx.sampleRate*.15,ctx.sampleRate);const d=buf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3);const src=ctx.createBufferSource();src.buffer=buf;const g=ctx.createGain();g.gain.value=.5;src.connect(g);g.connect(ctx.destination);src.start();return;}const cfg=ICFG[inst]||ICFG.piano;const osc=ctx.createOscillator();const g=ctx.createGain();osc.connect(g);g.connect(ctx.destination);osc.type=cfg.type;osc.frequency.value=freq;const t=ctx.currentTime;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.35,t+cfg.atk);g.gain.exponentialRampToValueAtTime(.001,t+dur);osc.start(t);osc.stop(t+dur+.05);}
+function pDrum(){const ctx=gAC();const buf=ctx.createBuffer(1,ctx.sampleRate*.1,ctx.sampleRate);const d=buf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2);const src=ctx.createBufferSource();src.buffer=buf;const g=ctx.createGain();g.gain.value=.35;src.connect(g);g.connect(ctx.destination);src.start();}
+function initMusic(){buildPiano();buildBeats();stpMk(0);}
+function buildPiano(){const w=document.getElementById('piano-keys');w.innerHTML='';ND.forEach((n,i)=>{const k=document.createElement('div');k.className='pk '+(n.t==='w'?'w':'b');k.textContent=n.t==='w'?n.n:'';k.addEventListener('pointerdown',()=>{addNote(i);k.classList.add('lit');setTimeout(()=>k.classList.remove('lit'),180);});w.appendChild(k);});buildViz();}
+function buildViz(){const v=document.getElementById('viz-bars');v.innerHTML='';for(let i=0;i<18;i++){const b=document.createElement('div');b.className='vb';b.id='vb'+i;v.appendChild(b);}}
+function addNote(idx){const n=ND[idx];pFreq(n.f,.4,sInst);sMel.push(idx);renderMel();stpMk(2);}
+function renderMel(){const tr=document.getElementById('notes-track');if(!sMel.length){tr.innerHTML='<span class="tet">اضغط البيانو...</span>';return;}tr.innerHTML='';sMel.forEach((idx,i)=>{const n=ND[idx];const p=document.createElement('div');p.className='np';p.style.background=n.bg;p.style.border='1px solid '+n.c;p.style.color=n.c;p.innerHTML=n.n+`<div class="nx" onclick="delNote(${i},event)">×</div>`;tr.appendChild(p);});}
+function delNote(i,e){e.stopPropagation();sMel.splice(i,1);renderMel();}
+function clearMel(){sMel=[];renderMel();}
+function buildBeats(){['beat-drum','beat-bass'].forEach((id,row)=>{const el=document.getElementById(id);el.innerHTML='';for(let i=0;i<8;i++){const c=document.createElement('div');c.className='bc';c.dataset.r=row;c.dataset.c=i;c.textContent=i+1;c.onclick=()=>{if(row===0){sDrum[i]=!sDrum[i];c.classList.toggle('on',sDrum[i]);}else{sBass[i]=!sBass[i];c.classList.toggle('on',sBass[i]);}pDrum();stpMk(3);};el.appendChild(c);}});}
+function selInst(el){document.querySelectorAll('.ib').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');sInst=el.dataset.inst;stpMk(0);}
+function selMood(el){document.querySelectorAll('.mb').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');sMood=el.dataset.mood;stpMk(1);}
+function updTempo(v){sBpm=parseInt(v);document.getElementById('tempo-v').textContent=sBpm+' نبضة/د';}
+function stpMk(n){for(let i=0;i<=n;i++){document.getElementById('stp'+(i+1)).classList.add('active');if(i<n)document.getElementById('stp'+(i+1)).classList.add('done');}}
+function togglePlay(){if(sPlay)stopPlay();else startPlay();}
+function startPlay(){if(!sMel.length&&!sDrum.some(Boolean)){const fb=document.getElementById('studio-fb');fb.className='stfb err on';fb.textContent='أضف نوتات أو إيقاعات!';return;}sPlay=true;sStep=0;[document.getElementById('play-btn'),document.getElementById('final-play-btn')].forEach(b=>b.classList.add('playing'));document.getElementById('play-ico').textContent='⏹';document.getElementById('play-lbl').textContent=' إيقاف';doTick();sTimer=setInterval(doTick,(60/sBpm)*500);}
+function stopPlay(){sPlay=false;clearInterval(sTimer);[document.getElementById('play-btn'),document.getElementById('final-play-btn')].forEach(b=>b.classList.remove('playing'));document.getElementById('play-ico').textContent='▶';document.getElementById('play-lbl').textContent=' تشغيل';document.getElementById('playhead').style.width='0%';document.querySelectorAll('.bc').forEach(c=>c.classList.remove('lit'));document.querySelectorAll('.vb').forEach(b=>b.style.height='3px');}
+function doTick(){const step=sStep%8;if(sMel.length){const ni=sMel[sStep%sMel.length];const n=ND[ni];pFreq(n.f,60/sBpm*.82,sInst);const vb=document.getElementById('vb'+(ni%18));if(vb){vb.style.height='22px';setTimeout(()=>vb.style.height='3px',180);}}document.querySelectorAll('.bc').forEach(c=>c.classList.remove('lit'));if(sDrum[step]){pDrum();document.querySelectorAll('#beat-drum .bc')[step]?.classList.add('lit');}if(sBass[step]){pDrum();document.querySelectorAll('#beat-bass .bc')[step]?.classList.add('lit');}document.getElementById('playhead').style.width=Math.min(Math.round(sStep/Math.max(sMel.length,8)*100),100)+'%';sStep++;if(sMel.length&&sStep>=sMel.length*2)stopPlay();}
+function saveStudio(){const title=document.getElementById('track-title').value.trim()||'لحن بدون اسم';if(!sMel.length){const fb=document.getElementById('studio-fb');fb.className='stfb err on';fb.textContent='أضف نوتات!';return;}const notes=sMel.map(i=>ND[i].n).join(' - ');const beats=sDrum.map((v,i)=>v?(i+1):'').filter(Boolean).join(',');recMusic(title,`🎸${sInst}|${sMood}|⚡${sBpm}|🎵${notes}|🥁${beats||'—'}`);const fb=document.getElementById('studio-fb');fb.className='stfb ok on';fb.textContent=`تم حفظ "${title}" 🎉`;stpMk(4);}
+
+/* ===== READING ===== */
+const RD_G1=[
+  {story:'كانت سارة تحب القراءة كثيراً. كل يوم تقرأ كتاباً جديداً. ذات يوم وجدت كتاباً عن الفضاء فتعلمت أن الشمس أكبر من الأرض بكثير.',q:'لماذا تقرأ سارة يومياً؟',opts:['لأنها تتعلم أشياء جديدة','لأن أمها تأمرها','لأن الكتب رخيصة','لأنها لا تحب اللعب'],ans:0,exp:'القراءة تفتح عوالم جديدة!'},
+  {story:'ذهب علي إلى المكتبة ووجد كتاباً عن الحيوانات. قرأ أن الحوت الأزرق هو أكبر حيوان في العالم، وأن الطائر الطنان هو أصغر طائر.',q:'ما أكبر حيوان في العالم؟',opts:['الفيل','الحوت الأزرق','الزرافة','النمر'],ans:1,exp:'الحوت الأزرق يصل لـ 30 متراً!'},
+  {story:'كتبت نورة قصة عن أميرة شجاعة أنقذت قريتها من الجفاف بحفر بئر عميقة بعد أسبوع من العمل الشاق.',q:'كيف أنقذت الأميرة قريتها؟',opts:['ببناء قلعة','بحفر بئر','بالسحر','بالهروب'],ans:1,exp:'العمل الجاد يحل المشكلات!'},
+  {story:'قرأ تركي أن النحلة تزور 1500 زهرة لتصنع ملعقة عسل. وأن النحل يتواصل بالرقص ليخبر بعضه أين الأزهار.',q:'كيف يتواصل النحل؟',opts:['بالأصوات','بالرقص','بالرسائل','بالألوان'],ans:1,exp:'رقصة النحلة خريطة للأزهار!'},
+];
+const RD_G2=[
+  {story:'القطة تقول مياو. الكلب يقول هاو. البقرة تقول خوار. كل حيوان له صوت مختلف.',q:'ماذا تقول القطة؟',opts:['هاو','مياو','خوار','صفير'],ans:1,exp:'القطة تقول مياو!'},
+  {story:'الشمس تشرق في الصباح وتغرب في المساء. النجوم تظهر في الليل. القمر يضيء الليل.',q:'متى تشرق الشمس؟',opts:['الليل','الصباح','المساء','دائماً'],ans:1,exp:'الشمس تشرق كل صباح!'},
+  {story:'سمير يحب الألوان. الأحمر مثل التفاحة. الأصفر مثل الشمس. الأخضر مثل العشب.',q:'ما لون الشمس في القصة؟',opts:['أحمر','أخضر','أصفر','أزرق'],ans:2,exp:'الشمس صفراء!'},
+  {story:'ذهبت ليلى مع أمها إلى السوق. اشترتا خبزاً وحليباً وتفاحاً. رجعتا إلى البيت سعيدتين.',q:'ماذا اشترتا؟',opts:['خبز فقط','خبز وحليب وتفاح','حلوى','ألعاب'],ans:1,exp:'خبز وحليب وتفاح!'},
+];
+let rdi=0,rds=0,rda=false,RDS=[];
+function initRD(){RDS=GL==='g1'?RD_G1:RD_G2;rdi=0;rds=0;mkSt('rd-st',0,RDS.length);loadRD();}
+function loadRD(){rda=false;const q=RDS[rdi];document.getElementById('rd-story').innerHTML=`<div class="story-title">📖 اقرأ:</div>${q.story}`;document.getElementById('rd-q').textContent=q.q;document.getElementById('rd-pg').textContent=`${rdi+1}/${RDS.length}`;const op=document.getElementById('rd-opts');op.innerHTML='';q.opts.forEach((o,i)=>{const b=document.createElement('button');b.className='opt';b.textContent=o;b.onclick=()=>ansRD(i);op.appendChild(b);});document.getElementById('rd-fb').className='fb';document.getElementById('rd-nxt').className='nxt';}
+function ansRD(idx){if(rda)return;rda=true;const q=RDS[rdi];const ok=idx===q.ans;document.querySelectorAll('#rd-opts .opt').forEach((b,i)=>{if(i===q.ans)b.classList.add('correct');else if(i===idx&&!ok)b.classList.add('wrong');else b.classList.add('dim');});const fb=document.getElementById('rd-fb');if(ok){rds++;mkSt('rd-st',rds,RDS.length);fb.className='fb ok on';fb.textContent='✓ رائع! '+q.exp;}else{fb.className='fb err on';fb.textContent='✗ الجواب: '+q.opts[q.ans]+' — '+q.exp;}recAns('القراءة',q.q,q.opts[idx]+(ok?' ✓':' ✗'),ok?1:0,1);const nb=document.getElementById('rd-nxt');nb.className='nxt on';nb.textContent=rdi<RDS.length-1?'التالي ←':'النتيجة';}
+function nextRD(){rdi++;if(rdi>=RDS.length){document.getElementById('rd-res').classList.add('on');const p=Math.round(rds/RDS.length*100);document.getElementById('rd-rt').textContent=rds===RDS.length?'قارئ ممتاز!':rds>=3?'أحسنت!':'تدرب أكثر!';document.getElementById('rd-rp').textContent=`${GN} — ${rds}/${RDS.length} (${p}%)`;}else loadRD();}
+function resetRD(){document.getElementById('rd-res').classList.remove('on');initRD();}
+
+/* ===== WRITING ===== */
+const WR_G1=[
+  {title:'قصة قصيرة',prompt:'اكتب قصة عن طفل اكتشف كنزاً في حديقته.',hint:'على الأقل 3 جمل',min:10},
+  {title:'وصف مكان',prompt:'صف مكانك المفضل بالألوان والأصوات والروائح.',hint:'استخدم كلمات تصويرية',min:8},
+  {title:'رأيك',prompt:'هل يجب أن يكون لكل طفل حيوان أليف؟ اذكر سببين.',hint:'رأيك + سببين',min:8},
+];
+const WR_G2=[
+  {title:'أحب...!',prompt:'اكتب جملتين عن شيء تحبه ولماذا.',hint:'جملتان كافيتان!',min:3},
+  {title:'يومي',prompt:'اكتب عن شيء ممتع حدث معك اليوم.',hint:'جملة أو جملتان',min:3},
+  {title:'أتمنى',prompt:'ما الشيء الذي تتمناه ولماذا؟',hint:'اكتب بحرية!',min:3},
+];
+let wri=0,wrs=0,WRS=[];
+function initWR(){WRS=GL==='g1'?WR_G1:WR_G2;wri=0;wrs=0;mkSt('wr-st',0,WRS.length);loadWR();}
+function loadWR(){const q=WRS[wri];document.getElementById('wr-prompt').innerHTML=`<p>${q.title}</p><br><b style="font-size:13px">${q.prompt}</b><br><span>${q.hint}</span>`;document.getElementById('wr-text').value='';document.getElementById('wr-count').textContent='0 كلمة';document.getElementById('wr-fb').className='fb';document.getElementById('wr-pg').textContent=`${wri+1}/${WRS.length}`;document.getElementById('wr-text').oninput=function(){const wc=this.value.trim().split(/\s+/).filter(w=>w).length;document.getElementById('wr-count').textContent=wc+' كلمة';};}
+function submitWriting(){const txt=document.getElementById('wr-text').value.trim();const wc=txt.split(/\s+/).filter(w=>w).length;const min=WRS[wri].min;if(wc<min){const f=document.getElementById('wr-fb');f.className='fb err on';f.textContent=`اكتب ${min} كلمات على الأقل (كتبت ${wc})`;return;}wrs++;mkSt('wr-st',wrs,WRS.length);const f=document.getElementById('wr-fb');f.className='fb ok on';f.textContent=`رائع! كتبت ${wc} كلمة 🌟`;recAns('الكتابة',WRS[wri].title,txt.substring(0,100)+(txt.length>100?'...':''),1,1);setTimeout(()=>{wri++;if(wri>=WRS.length){document.getElementById('wr-res').classList.add('on');document.getElementById('wr-rp').textContent=`${GN} — أكمل ${WRS.length} تمارين كتابة!`;}else{f.className='fb';loadWR();}},1800);}
+function resetWR(){document.getElementById('wr-res').classList.remove('on');initWR();}
+
+/* ===== MATH ===== */
+const MT_G1=[
+  {q:'15 + 27 = ؟',hint:'الجمع',ans:42,exp:'15 + 27 = 42'},
+  {q:'63 - 28 = ؟',hint:'الطرح',ans:35,exp:'63 - 28 = 35'},
+  {q:'7 × 8 = ؟',hint:'الضرب',ans:56,exp:'7 × 8 = 56'},
+  {q:'81 ÷ 9 = ؟',hint:'القسمة',ans:9,exp:'81 ÷ 9 = 9'},
+  {q:'كم عدد أضلاع المسدس؟',hint:'الهندسة',ans:6,exp:'المسدس له 6 أضلاع'},
+  {q:'3 أقلام × 4 ريال. كم تدفع؟',hint:'الضرب في الحياة',ans:12,exp:'3 × 4 = 12 ريال'},
+];
+let mti=0,mts=0,mta=false;
+function initMT(){mti=0;mts=0;mkSt('mt-st',0,MT_G1.length);loadMT();}
+function loadMT(){mta=false;const q=MT_G1[mti];document.getElementById('mt-q').textContent=q.q;document.getElementById('mt-hint').textContent='💡 '+q.hint;document.getElementById('mt-ans').value='';document.getElementById('mt-fb').className='fb';document.getElementById('mt-nxt').className='nxt';document.getElementById('mt-pg').textContent=`${mti+1}/${MT_G1.length}`;}
+function checkMath(){if(mta)return;const q=MT_G1[mti];const val=parseInt(document.getElementById('mt-ans').value);if(isNaN(val)){document.getElementById('mt-fb').className='fb err on';document.getElementById('mt-fb').textContent='اكتب رقماً!';return;}mta=true;const ok=val===q.ans;const fb=document.getElementById('mt-fb');if(ok){mts++;mkSt('mt-st',mts,MT_G1.length);fb.className='fb ok on';fb.textContent='✓ صحيح! '+q.exp;}else{fb.className='fb err on';fb.textContent=`✗ الجواب: ${q.ans} — ${q.exp}`;}recAns('الرياضيات',q.q,String(val)+(ok?' ✓':' ✗'),ok?1:0,1);const nb=document.getElementById('mt-nxt');nb.className='nxt on';nb.textContent=mti<MT_G1.length-1?'التالي ←':'النتيجة';}
+function nextMT(){mti++;if(mti>=MT_G1.length){document.getElementById('mt-res').classList.add('on');const p=Math.round(mts/MT_G1.length*100);document.getElementById('mt-rt').textContent=mts===MT_G1.length?'عبقري!':mts>=4?'ممتاز!':'تدرب أكثر!';document.getElementById('mt-rp').textContent=`${GN} — ${mts}/${MT_G1.length} (${p}%)`;}else loadMT();}
+function resetMT(){document.getElementById('mt-res').classList.remove('on');initMT();}
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('math').classList.contains('active')&&!mta)checkMath();});
+
+/* ===== INITIATIVE ===== */
+const IN_G1=[
+  {title:'موقف القيادة',sc:'سقط طفل صغير في الملعب وبكى. أنت تلعب مع أصدقائك. ماذا ستفعل؟',opts:[{t:'تستمر في اللعب',v:0},{t:'تذهب إليه وتساعده',v:2},{t:'تصرخ دون اتجاه',v:0},{t:'تطلب من صديقك المساعدة',v:1}],best:1,exp:'المبادرة الفورية بتعاطف!'},
+  {title:'الإبداع',sc:'طُلب من صفك تنظيم مسرحية. لم يرفع أحد يده. ماذا تفعل؟',opts:[{t:'ترفع يدك وتقترح',v:2},{t:'تنتظر شخصاً آخر',v:0},{t:'تقول الفكرة صعبة',v:0},{t:'تقترح لكن ترفض التنفيذ',v:1}],best:0,exp:'رفع اليد والمبادرة = قيادة!'},
+  {title:'حل المشكلات',sc:'اختلف أعضاء مجموعتك على الخطة. الوقت ينفد. ماذا تفعل؟',opts:[{t:'تصمت',v:0},{t:'تقترح حلاً وسطاً',v:2},{t:'تنسحب',v:0},{t:'تفرض رأيك',v:0}],best:1,exp:'الحل الوسط = قيادة حكيمة!'},
+  {title:'المساعدة',sc:'رأيت جارك العجوز يحمل أكياساً ثقيلة. ماذا ستفعل؟',opts:[{t:'تكمل طريقك',v:0},{t:'تنظر فقط',v:0},{t:'تعرض مساعدته',v:2},{t:'تخبر أخاك يساعده',v:1}],best:2,exp:'المساعدة الفورية = شخصية قيادية!'},
+];
+const IN_G2=[
+  {title:'المشاركة',sc:'المعلمة تسأل سؤالاً. أنت تعرف الجواب. ماذا تفعل؟',opts:[{t:'تصمت',v:0},{t:'ترفع يدك وتجيب',v:2},{t:'تهمس للجار',v:1},{t:'تنظر للأرض',v:0}],best:1,exp:'رفع اليد شجاعة!'},
+  {title:'مساعدة صديق',sc:'صديقك لا يجد قلمه. ماذا تفعل؟',opts:[{t:'تواصل كتابتك',v:0},{t:'تضحك عليه',v:0},{t:'تعطيه قلماً احتياطياً',v:2},{t:'تقول له يسأل المعلمة',v:1}],best:2,exp:'المساعدة من القلب مبادرة!'},
+  {title:'النظافة',sc:'رأيت ورقة على الأرض في الملعب. ماذا تفعل؟',opts:[{t:'تتجاهلها',v:0},{t:'ترميها في سلة المهملات',v:2},{t:'تدوسها',v:0},{t:'تتركها للبستاني',v:1}],best:1,exp:'الاهتمام بالبيئة مبادرة!'},
+  {title:'الإبداع',sc:'أنهيت واجبك بسرعة. ماذا تفعل؟',opts:[{t:'تلعب بهاتفك',v:0},{t:'تساعد صديقاً',v:2},{t:'تنام',v:0},{t:'تقرأ أو ترسم',v:2}],best:1,exp:'استغلال الوقت = مبادرة ذكية!'},
+];
+let ini=0,ins=0,ina=false,INS=[];
+function initIN(){INS=GL==='g1'?IN_G1:IN_G2;ini=0;ins=0;mkSt('in-st',0,INS.length);loadIN();}
+function loadIN(){ina=false;const q=INS[ini];document.getElementById('in-sc').innerHTML=`<div class="sc-t">📍 ${q.title}</div><p>${q.sc}</p>`;document.getElementById('in-pg').textContent=`${ini+1}/${INS.length}`;const op=document.getElementById('in-opts');op.innerHTML='';q.opts.forEach((o,i)=>{const b=document.createElement('div');b.className='iopt';b.textContent=o.t;b.onclick=()=>ansIN(i);op.appendChild(b);});document.getElementById('in-fb').className='fb';document.getElementById('in-nxt').className='nxt';}
+function ansIN(idx){if(ina)return;ina=true;const q=INS[ini];const v=q.opts[idx].v;const ok=idx===q.best;document.querySelectorAll('.iopt').forEach((b,i)=>{if(i===q.best)b.classList.add('best');else if(q.opts[i].v===1)b.classList.add('ok2');else b.classList.add('dim');});const fb=document.getElementById('in-fb');if(ok){ins++;mkSt('in-st',ins,INS.length);fb.className='fb ok on';fb.textContent='🌟 ممتاز! '+q.exp;}else if(v===1){fb.className='fb ok on';fb.textContent='👍 جيد! لكن الأفضل: '+q.opts[q.best].t;}else{fb.className='fb err on';fb.textContent='💡 الأفضل: '+q.opts[q.best].t+' — '+q.exp;}recAns('المبادرة',q.sc.substring(0,60),q.opts[idx].t+(ok?' ✓':''),ok?1:0,1);const nb=document.getElementById('in-nxt');nb.className='nxt on';nb.textContent=ini<INS.length-1?'التالي ←':'النتيجة';}
+function nextIN(){ini++;if(ini>=INS.length){document.getElementById('in-res').classList.add('on');const p=Math.round(ins/INS.length*100);document.getElementById('in-rt').textContent=ins===INS.length?'قائد المستقبل!':ins>=3?'روح مبادِرة!':'استمر!';document.getElementById('in-rp').textContent=`${GN} — ${ins}/${INS.length} (${p}%)`;}else loadIN();}
+function resetIN(){document.getElementById('in-res').classList.remove('on');initIN();}
+
+/* ===== TECH ===== */
+const TC_G2=[
+  {icon:'💻',q:'ما الجهاز الذي نستخدمه للكتابة على الإنترنت؟',opts:[{icon:'📱',t:'هاتف'},{icon:'💻',t:'حاسوب'},{icon:'📺',t:'تلفاز'},{icon:'📻',t:'راديو'}],ans:1,exp:'الحاسوب للكتابة والعمل!'},
+  {icon:'🖱️',q:'ما اسم هذه الأداة التي نتحكم بها في الحاسوب؟',opts:[{icon:'⌨️',t:'لوحة المفاتيح'},{icon:'🖱️',t:'الفأرة'},{icon:'📱',t:'الشاشة'},{icon:'🔊',t:'السماعة'}],ans:1,exp:'الفأرة تتحكم في الحاسوب!'},
+  {icon:'🔍',q:'ماذا نستخدم للبحث عن معلومات على الإنترنت؟',opts:[{icon:'📞',t:'الهاتف'},{icon:'🔍',t:'محرك البحث'},{icon:'📺',t:'التلفاز'},{icon:'📰',t:'الجريدة'}],ans:1,exp:'محرك البحث مثل Google!'},
+  {icon:'📧',q:'ماذا يُسمى إرسال رسالة عبر الإنترنت؟',opts:[{icon:'💌',t:'رسالة بريد عادي'},{icon:'📧',t:'بريد إلكتروني'},{icon:'📱',t:'مكالمة'},{icon:'📺',t:'برنامج'}],ans:1,exp:'البريد الإلكتروني يصل فوراً!'},
+];
+let tci=0,tcs=0,tca=false;
+function initTC(){tci=0;tcs=0;mkSt('tc-st',0,TC_G2.length);loadTC();}
+function loadTC(){tca=false;const q=TC_G2[tci];document.getElementById('tc-q-box').innerHTML=`<span class="tq-icon">${q.icon}</span><div class="tq-txt">${q.q}</div>`;document.getElementById('tc-pg').textContent=`${tci+1}/${TC_G2.length}`;const op=document.getElementById('tc-opts');op.innerHTML='';q.opts.forEach((o,i)=>{const b=document.createElement('div');b.className='topt';b.innerHTML=`<span class="to-icon">${o.icon}</span><span>${o.t}</span>`;b.onclick=()=>ansTC(i);op.appendChild(b);});document.getElementById('tc-fb').className='fb';document.getElementById('tc-nxt').className='nxt';}
+function ansTC(idx){if(tca)return;tca=true;const q=TC_G2[tci];const ok=idx===q.ans;document.querySelectorAll('.topt').forEach((b,i)=>{if(i===q.ans)b.classList.add('correct');else if(i===idx&&!ok)b.classList.add('wrong');else b.classList.add('dim');});const fb=document.getElementById('tc-fb');if(ok){tcs++;mkSt('tc-st',tcs,TC_G2.length);fb.className='fb ok on';fb.textContent='✓ ممتاز! '+q.exp;}else{fb.className='fb err on';fb.textContent='✗ الجواب: '+q.opts[q.ans].t+' — '+q.exp;}recAns('التكنولوجيا',q.q,q.opts[idx].t+(ok?' ✓':' ✗'),ok?1:0,1);const nb=document.getElementById('tc-nxt');nb.className='nxt on';nb.textContent=tci<TC_G2.length-1?'التالي ←':'النتيجة';}
+function nextTC(){tci++;if(tci>=TC_G2.length){document.getElementById('tc-res').classList.add('on');const p=Math.round(tcs/TC_G2.length*100);document.getElementById('tc-rt').textContent=tcs===TC_G2.length?'خبير تقنية!':tcs>=3?'ممتاز!':'تعلم أكثر!';document.getElementById('tc-rp').textContent=`${GN} — ${tcs}/${TC_G2.length} (${p}%)`;}else loadTC();}
+function resetTC(){document.getElementById('tc-res').classList.remove('on');initTC();}
+
+/* ===== TEACHER ===== */
+async function loadTeacher(){
+  document.getElementById('tlist').innerHTML='<div class="ldg"><div class="spin"></div><br>جاري التحميل...</div>';
+  const [ans,draws,musics]=await Promise.all([dbGet(KA),dbGet(KD),dbGet(KM)]);
+  renderTeacher(ans,draws,musics);
+}
+function renderTeacher(ans,draws,musics){
+  const list=document.getElementById('tlist');
+  if(!ans.length&&!draws.length&&!musics.length){list.innerHTML='<div class="nodata">لا توجد بيانات بعد</div>';updSt(0,0,0);return;}
+  const by={};
+  ans.forEach(r=>{if(!by[r.name])by[r.name]={lvl:r.lvl,talent:r.talent,a:[],d:[],m:[]};by[r.name].a.push(r);});
+  draws.forEach(r=>{if(!by[r.name])by[r.name]={lvl:r.lvl,talent:r.talent,a:[],d:[],m:[]};by[r.name].d.push(r);});
+  musics.forEach(r=>{if(!by[r.name])by[r.name]={lvl:r.lvl,talent:r.talent,a:[],d:[],m:[]};by[r.name].m.push(r);});
+  const names=Object.keys(by);
+  let sc=0,tot=0;ans.forEach(r=>{sc+=r.sc||0;tot+=r.tot||0;});
+  updSt(names.length,ans.length+draws.length+musics.length,tot>0?Math.round(sc/tot*100):0);
+  list.innerHTML='';
+  names.forEach(name=>{
+    const d=by[name];const s=d.a.reduce((x,r)=>x+(r.sc||0),0);const t2=d.a.reduce((x,r)=>x+(r.tot||0),0);
+    const card=document.createElement('div');card.className='sc';
+    const lvlLabel=d.lvl==='g1'?'حلقة أولى':'روضة ثانية';
+    const talentCfg=TALENT_LABELS[d.talent]||{icon:'⭐',label:d.talent};
+    let h=`<div class="snam">👤 ${name}<span class="slvl ${d.lvl}">${lvlLabel}</span></div>`;
+    h+=`<span class="stalent">${talentCfg.icon} ${talentCfg.label}</span>`;
+    h+=`<div class="smeta">النقاط: ${s}/${t2} — ${d.a.length} إجابة — ${d.d.length} رسمة — ${d.m.length} لحن</div>`;
+    const grp={};d.a.forEach(r=>{if(!grp[r.game])grp[r.game]=[];grp[r.game].push(r);});
+    Object.entries(grp).forEach(([game,rows])=>{
+      h+=`<div style="font-size:10px;font-weight:700;color:var(--g400);margin:6px 0 2px">${game}</div>`;
+      rows.forEach(r=>{h+=`<div class="arow2"><div class="agame">${r.time}</div><div class="aq2">${r.q}</div><div class="aa2">${r.a}</div></div>`;});
+    });
+    if(d.m.length){h+=`<div style="font-size:10px;font-weight:700;color:var(--g400);margin:6px 0 2px">🎹 ألحان</div>`;d.m.forEach(r=>{h+=`<div class="arow2"><div class="agame">${r.title} — ${r.time}</div><div class="aa2" style="font-size:11px">${r.detail}</div></div>`;});}
+    if(d.d.length){h+=`<div style="font-size:10px;font-weight:700;color:var(--g400);margin:6px 0 2px">🎨 رسمات</div>`;d.d.forEach(r=>{h+=`<div class="arow2"><div class="agame">${r.time}</div><div class="aq2">${r.ch}</div><img class="aimg2" src="${r.du}" loading="lazy"/></div>`;});}
+    card.innerHTML=h;list.appendChild(card);
+  });
+}
+function updSt(s,r,a){document.getElementById('ss').textContent=s;document.getElementById('sr').textContent=r;document.getElementById('sa').textContent=a+'%';}
+async function clearAll(){if(!confirm('مسح جميع البيانات؟'))return;await Promise.all([dbDel(KA),dbDel(KD),dbDel(KM)]);document.getElementById('exparea').style.display='none';loadTeacher();}
+async function exportData(){
+  const [ans,musics]=await Promise.all([dbGet(KA),dbGet(KM)]);
+  if(!ans.length&&!musics.length){alert('لا توجد بيانات');return;}
+  const by={};ans.forEach(r=>{if(!by[r.name])by[r.name]={lvl:r.lvl,talent:r.talent,a:[],m:[]};by[r.name].a.push(r);});musics.forEach(r=>{if(!by[r.name])by[r.name]={lvl:r.lvl,talent:r.talent,a:[],m:[]};by[r.name].m.push(r);});
+  let txt='نجوم الموهبة — تقرير\n'+'='.repeat(32)+'\n\n';
+  Object.entries(by).forEach(([name,d])=>{
+    const lvl=d.lvl==='g1'?'حلقة أولى':'روضة ثانية';
+    const tal=(TALENT_LABELS[d.talent]||{label:d.talent}).label;
+    const s=d.a.reduce((x,r)=>x+(r.sc||0),0);const t2=d.a.reduce((x,r)=>x+(r.tot||0),0);
+    txt+=`${name} [${lvl}] [${tal}] — النقاط: ${s}/${t2}\n`;
+    const grp={};d.a.forEach(r=>{if(!grp[r.game])grp[r.game]=[];grp[r.game].push(r);});
+    Object.entries(grp).forEach(([g,rows])=>{txt+=`  ${g}:\n`;rows.forEach(r=>{txt+=`    [${r.time}] ${r.q}\n    الإجابة: ${r.a}\n\n`;});});
+    d.m.forEach(r=>{txt+=`  [${r.time}] لحن "${r.title}": ${r.detail}\n\n`;});
+    txt+='\n';
+  });
+  document.getElementById('exptxt').value=txt;document.getElementById('exparea').style.display='block';
+}
+// teacher auto-refresh disabled in student version
+
+function initAll(){
+  initIQ();initThink();initCv();initMusic();initRD();initWR();initMT();initIN();initTC();
+}
+
+// Init talent grid on load
+updateTalentGrid();
+</script>
+</body>
+</html>
